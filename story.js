@@ -3,7 +3,7 @@ export const CHAPTERS=[
  {title:'экономика листиков',theme:'plants',label:'маленькие горшки. огромные планы.'},
  {title:'любовь, лаги и Lineage 2',theme:'raid',label:'одна семья. две разные пати.'},
  {title:'великая шмизнизация',theme:'orders',label:'интернет обнаружил Фасольку'},
- {title:'очень зелёная империя',theme:'plants',label:'расти вместе — буквально'},
+ {title:'очень зелёная империя',theme:'greenhouse',label:'расти вместе — буквально'},
  {title:'богатые и пушистые',theme:'rich',label:'те же чудики. сад побольше.'}
 ];
 const s=(id,chapter,title,text,extra={})=>({id,chapter,title,text,...extra});

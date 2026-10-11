@@ -1,7 +1,7 @@
-import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-7';
-import {STORY,CHAPTERS} from './story.js?v=portrait-7';
-import {storyFrames} from './layout.js?v=portrait-7';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-7';
+import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-8';
+import {STORY,CHAPTERS} from './story.js?v=portrait-8';
+import {storyFrames} from './layout.js?v=portrait-8';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-8';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
@@ -29,10 +29,20 @@ function chirp(kind='tap'){
  try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();audioContext.resume();const now=audioContext.currentTime;const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.connect(gain);gain.connect(audioContext.destination);osc.type='sine';const freq=kind==='good'?620:kind==='pet'?410:490;osc.frequency.setValueAtTime(freq,now);osc.frequency.exponentialRampToValueAtTime(freq*(kind==='good'?1.5:.75),now+.13);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.045,now+.015);gain.gain.exponentialRampToValueAtTime(.0001,now+.21);osc.start(now);osc.stop(now+.23);}catch{}
 }
 function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
-function petSays(pet,forced=false){
+function petSays(pet,forced=false,line=''){
  if(!forced&&Date.now()-lastChatter<14000)return;
- lastChatter=Date.now();const saying=Math.random()<.35?pet.quote:CHATTER[Math.floor(Math.random()*CHATTER.length)];$('#pet-bubble').textContent=`${pet.name}: “${saying}”`;$('#pet-bubble').classList.add('show');clearTimeout(bubbleTimer);bubbleTimer=setTimeout(()=>$('#pet-bubble').classList.remove('show'),4200);chirp('pet');
+ lastChatter=Date.now();const saying=line||(Math.random()<.35?pet.quote:CHATTER[Math.floor(Math.random()*CHATTER.length)]);const bubble=$('#pet-bubble');bubble.innerHTML=`<span class="bubble-pet">${petSVG(pet)}</span><span class="bubble-copy"><strong>${escapeHTML(pet.name)}</strong><span>«${escapeHTML(saying)}»</span></span>`;bubble.classList.add('show');clearTimeout(bubbleTimer);bubbleTimer=setTimeout(()=>bubble.classList.remove('show'),forced?1700:2400);chirp('pet');
 }
+const tapLines={
+ home:['Виззи! Завтрак сам себя не потребует.','Пиззи. Мы проверили: миска всё ещё круглая.','Шмиззи! Чмок принят. Ждём добавку.'],
+ plants:['Лист пошёл! Шмиззи пошло!','Виззи! Я финансово грамотный фикус.','Пиззи. Этот горшок — мой новый офис.'],
+ raid:['ВИЗЗИ! За клан и вторую миску!','Пиззи! Босс уронил тапок. Эпический дроп.','Шмиззи! Хил мне, вкусняшку танку!'],
+ orders:['Шмиззи! Упаковал носок. Очень ценный заказ.','Виззи! Посылка пахнет успехом.','Пиззи. Директор одобрил коробку попой.'],
+ greenhouse:['Шмиззи! Наш бизнес фотосинтезирует!','Виззи. Я начальник солнечного зайчика.','Пиззи! Листьев больше. Обнимашек тоже.'],
+ rich:['Шмиззи-делюкс! Деньги есть. Совесть съедена.','Виззи! Богатство измеряется диванами.','Пиззи. Миллионы мои, ужин ваш.']
+};
+function tapReaction(action){const theme=CHAPTERS[STORY[state.step]?.chapter]?.theme||'rich';const lines=action==='choose'?['Шмиззи! Решение одобрено всеми семью хвостами.','Пиззи! Семейный совет аплодирует ушами.']:tapLines[theme];petSays(PETS[Math.floor(Math.random()*PETS.length)],true,lines[Math.floor(Math.random()*lines.length)]);}
+
 function scheduleChatter(){clearTimeout(chatterTimer);chatterTimer=setTimeout(()=>{if(state.started&&!modal.open&&!document.hidden)petSays(PETS[Math.floor(Math.random()*PETS.length)]);scheduleChatter();},18000+Math.random()*16000);}
 function syncSound(){const b=$('#sound');if(!b)return;b.setAttribute('aria-pressed',String(state.sound));b.setAttribute('aria-label',state.sound?'Выключить звук':'Включить звук');b.innerHTML=`♫${state.sound?'':'<span class="sound-off">×</span>'}`;}
 function stats(){const cash=new Intl.NumberFormat('ru-RU',{notation:'compact',maximumFractionDigits:1}).format(state.cash);return `<div class="stats" aria-label="Состояние семьи"><span class="stat" aria-label="На листики: ${money(state.cash)} рублей"><span class="stat-value">✿ <b>${cash} ₽</b></span><span class="stat-label">на листики</span></span><span class="stat" aria-label="Заряд людей: ${state.energy}%"><span class="stat-value">☀ <b>${state.energy}%</b></span><span class="stat-label">заряд людей</span></span><span class="stat" aria-label="Большие чувства: ${state.love}"><span class="stat-value">♡ <b>${state.love}</b></span><span class="stat-label">большие чувства</span></span></div>`;}
@@ -94,7 +104,7 @@ function progress(choice,index){
 function focusGame(){const target=app.querySelector('.activity button:not(:disabled)');target?.focus({preventScroll:true});}
 async function handleAction(el){
  const a=el.dataset.action,id=el.dataset.id;
- if(a==='start'||a==='resume'){state.started=true;save();render();chirp('good');if(a==='start')setTimeout(()=>petSays(PETS[2],true),1100);}
+ if(a==='start'||a==='resume'){state.started=true;save();render();chirp('good');tapReaction(a);}
  else if(a==='next')progress();
  else if(a==='back'){if(state.page>0){state.page--;save();render();}}
  else if(a==='ending-report'){state.endingPage=1;save();render();}
@@ -119,7 +129,7 @@ async function handleAction(el){
  else if(a==='restart'){const names=state.names,sound=state.sound;state=newState();endingCelebrated=false;state.names=names;state.sound=sound;save();modal.close();render();window.scrollTo({top:0,behavior:'instant'});}
  else if(a==='share'){const url=new URL('./',window.location.href).href;try{if(navigator.share){await navigator.share({title:'eblefari · накорми пати',text:'Семь собак. Змеи. Зелёное состояние. Приходи за своей порцией шмиззи.',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Ссылка скопирована. Неси шмиззи в мир!');}else throw new Error('Clipboard unavailable');}catch(e){if(e.name!=='AbortError')openModal('Поделись шмиззи',`<p class="modal-copy">Отправь эту ссылку любимому человеку:</p><input class="name-input" aria-label="Ссылка на историю" value="${escapeHTML(url)}" readonly>`);}}
 }
-document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(el)handleAction(el);});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(!el||el.disabled)return;handleAction(el);if(['next','back','choose','pot','photo-style','photo-post','raid','pack','decorate','ending-report','ending-main'].includes(el.dataset.action))tapReaction(el.dataset.action);});
 document.addEventListener('submit',e=>{if(e.target.id!=='names-form')return;e.preventDefault();const first=$('#name-1').value.trim(),second=$('#name-2').value.trim();if(!first||!second)return;state.names=[first.slice(0,24),second.slice(0,24)];save();modal.close();render(false);toast('Двое прекрасных влюблённых. Сохранено.');});
 modal.addEventListener('click',e=>{if(e.target!==modal)return;const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close();});
 render();scheduleChatter();queueFit();

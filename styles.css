@@ -31,3 +31,11 @@
 .stat-value{display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap;font-size:13px}
 .stat b{font-size:13px}.stat-label{font-size:9px;white-space:nowrap}
 @container portrait (max-width:340px){.stat-value,.stat b{font-size:11px}.stat-label{font-size:8px}}
+
+/* Quick, non-blocking pet reactions appear where the player is looking. */
+#pet-bubble{top:50%;bottom:auto;left:50%;width:min(330px,calc(100% - 42px));max-width:330px;display:flex;align-items:center;gap:11px;padding:12px 15px;border-radius:24px 24px 24px 7px;background:#fff9e9;border:2px solid #d9bc8b;box-shadow:0 7px 0 #bdae8844,0 12px 42px #364a3433;transform:translate(-50%,-42%) scale(.94);font-family:var(--font);font-size:14px;text-align:left;transition:opacity .16s,transform .2s}
+#pet-bubble.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+.bubble-pet{width:64px;flex:none}.bubble-pet svg{width:64px;height:64px;display:block}
+.bubble-copy{display:flex;flex-direction:column;gap:4px}.bubble-copy strong{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--green)}.bubble-copy>span{line-height:1.45;color:#74603b;font-weight:800}
+.dragon-float{animation:dragon-float 4s ease-in-out infinite}.bee-flight{animation:bee-flight 3s ease-in-out infinite}.fountain-water{animation:fountain 2s ease-in-out infinite}
+@keyframes dragon-float{50%{transform:translateY(-5px)}}@keyframes bee-flight{50%{transform:translate(9px,-5px)}}@keyframes fountain{50%{opacity:.55}}

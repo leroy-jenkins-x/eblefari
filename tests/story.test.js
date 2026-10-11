@@ -28,5 +28,5 @@ test('the raid and packing tasks have explicit correct answers',()=>{
  assert.deepEqual(RAID.map(r=>r.correct),['tank','heal','buff']);assert.equal(ORDERS.length,4);for(const o of ORDERS)assert.ok(['monstera','flower','cactus'].includes(o.plant));
 });
 test('every illustration is inline and has no remote image dependencies',()=>{
- for(const c of CHAPTERS){const art=sceneSVG(c.theme);assert.ok(art.startsWith('<svg'));assert.ok(art.endsWith('</svg>'));assert.ok(art.includes('aria-label'));assert.ok(!art.includes('<image'));}for(const p of PETS)assert.ok(petSVG(p).includes('viewBox'));
+ assert.equal(new Set(CHAPTERS.map(c=>c.theme)).size,6);assert.equal(new Set(CHAPTERS.map(c=>sceneSVG(c.theme))).size,6);assert.match(sceneSVG('raid'),/LINEAGE II/);for(const c of CHAPTERS){const art=sceneSVG(c.theme);assert.ok(art.startsWith('<svg'));assert.ok(art.endsWith('</svg>'));assert.ok(art.includes('aria-label'));assert.ok(!art.includes('<image'));}for(const p of PETS)assert.ok(petSVG(p).includes('viewBox'));
 });
