@@ -1,7 +1,7 @@
-import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-8';
-import {STORY,CHAPTERS} from './story.js?v=portrait-8';
-import {storyFrames} from './layout.js?v=portrait-8';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-8';
+import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-9';
+import {STORY,CHAPTERS} from './story.js?v=portrait-9';
+import {storyFrames} from './layout.js?v=portrait-9';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-9';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
@@ -19,6 +19,7 @@ function queueFit(){if(window.requestAnimationFrame)window.requestAnimationFrame
 window.addEventListener?.('resize',fitViewport);window.visualViewport?.addEventListener('resize',fitViewport);document.fonts?.ready.then(fitViewport);
 
 const t=(text)=>interpolate(text,state);
+const restartButton=()=>'<button class="restart-link" data-action="restart-confirm" aria-label="Начать историю заново">↻ Начать заново</button>';
 const button=(text,action,extra='')=>`<button class="primary" data-action="${action}" ${extra}><span>${text}</span><span aria-hidden="true">↗</span></button>`;
 const plantNames={monstera:'Монстера',flower:'Цветущее растение',cactus:'Кактус'};
 const potTasks=[{plant:'monstera',hint:'Большие резные листья. Великолепный зелёный король драмы.'},{plant:'flower',hint:'Маленькая цветущая радость. Будто умеет кастовать лечение.'},{plant:'cactus',hint:'Колючий вышибала. Денис готов к своему крошечному горшку.'}];
@@ -30,8 +31,8 @@ function chirp(kind='tap'){
 }
 function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600);}
 function petSays(pet,forced=false,line=''){
- if(!forced&&Date.now()-lastChatter<14000)return;
- lastChatter=Date.now();const saying=line||(Math.random()<.35?pet.quote:CHATTER[Math.floor(Math.random()*CHATTER.length)]);const bubble=$('#pet-bubble');bubble.innerHTML=`<span class="bubble-pet">${petSVG(pet)}</span><span class="bubble-copy"><strong>${escapeHTML(pet.name)}</strong><span>«${escapeHTML(saying)}»</span></span>`;bubble.classList.add('show');clearTimeout(bubbleTimer);bubbleTimer=setTimeout(()=>bubble.classList.remove('show'),forced?1700:2400);chirp('pet');
+ if(Date.now()-lastChatter<(forced?4500:9000))return;
+ lastChatter=Date.now();const saying=line||(Math.random()<.35?pet.quote:CHATTER[Math.floor(Math.random()*CHATTER.length)]);const bubble=$('#pet-bubble');bubble.innerHTML=`<span class="bubble-pet">${petSVG(pet)}</span><span class="bubble-copy"><strong>${escapeHTML(pet.name)}</strong><span>«${escapeHTML(saying)}»</span></span>`;bubble.classList.add('show');clearTimeout(bubbleTimer);bubbleTimer=setTimeout(()=>bubble.classList.remove('show'),1800);chirp('pet');
 }
 const tapLines={
  home:['Виззи! Завтрак сам себя не потребует.','Пиззи. Мы проверили: миска всё ещё круглая.','Шмиззи! Чмок принят. Ждём добавку.'],
@@ -41,9 +42,10 @@ const tapLines={
  greenhouse:['Шмиззи! Наш бизнес фотосинтезирует!','Виззи. Я начальник солнечного зайчика.','Пиззи! Листьев больше. Обнимашек тоже.'],
  rich:['Шмиззи-делюкс! Деньги есть. Совесть съедена.','Виззи! Богатство измеряется диванами.','Пиззи. Миллионы мои, ужин ваш.']
 };
-function tapReaction(action){const theme=CHAPTERS[STORY[state.step]?.chapter]?.theme||'rich';const lines=action==='choose'?['Шмиззи! Решение одобрено всеми семью хвостами.','Пиззи! Семейный совет аплодирует ушами.']:tapLines[theme];petSays(PETS[Math.floor(Math.random()*PETS.length)],true,lines[Math.floor(Math.random()*lines.length)]);}
+let tapCount=0;
+function tapReaction(action){if(action==='back')return;if(action==='next'&&++tapCount%3!==0)return;const theme=CHAPTERS[STORY[state.step]?.chapter]?.theme||'rich';const lines=action==='choose'?['Шмиззи! Решение одобрено всеми семью хвостами.','Пиззи! Семейный совет аплодирует ушами.']:tapLines[theme];petSays(PETS[Math.floor(Math.random()*PETS.length)],true,lines[Math.floor(Math.random()*lines.length)]);}
 
-function scheduleChatter(){clearTimeout(chatterTimer);chatterTimer=setTimeout(()=>{if(state.started&&!modal.open&&!document.hidden)petSays(PETS[Math.floor(Math.random()*PETS.length)]);scheduleChatter();},18000+Math.random()*16000);}
+function scheduleChatter(){clearTimeout(chatterTimer);chatterTimer=setTimeout(()=>{if(state.started&&!modal.open&&!document.hidden)petSays(PETS[Math.floor(Math.random()*PETS.length)]);scheduleChatter();},45000+Math.random()*15000);}
 function syncSound(){const b=$('#sound');if(!b)return;b.setAttribute('aria-pressed',String(state.sound));b.setAttribute('aria-label',state.sound?'Выключить звук':'Включить звук');b.innerHTML=`♫${state.sound?'':'<span class="sound-off">×</span>'}`;}
 function stats(){const cash=new Intl.NumberFormat('ru-RU',{notation:'compact',maximumFractionDigits:1}).format(state.cash);return `<div class="stats" aria-label="Состояние семьи"><span class="stat" aria-label="На листики: ${money(state.cash)} рублей"><span class="stat-value">✿ <b>${cash} ₽</b></span><span class="stat-label">на листики</span></span><span class="stat" aria-label="Заряд людей: ${state.energy}%"><span class="stat-value">☀ <b>${state.energy}%</b></span><span class="stat-label">заряд людей</span></span><span class="stat" aria-label="Большие чувства: ${state.love}"><span class="stat-value">♡ <b>${state.love}</b></span><span class="stat-label">большие чувства</span></span></div>`;}
 function activityState(id,initial){if(!state.activities[id]||typeof state.activities[id]!=='object')state.activities[id]=structuredClone(initial);return state.activities[id];}
@@ -57,7 +59,7 @@ function gamePacking(){const g=activityState('packing',{count:0,feedback:'Акк
 function gameDecorate(){const g=activityState('decorate',{selected:[]});if(!Array.isArray(g.selected))g.selected=[];return gameFrame(`Устрой их новый дом · ${g.selected.length}/2`,'Выбери две приятные лишности. Нажми ещё раз, чтобы отменить выбор.',`<div class="room-grid">${upgrades.map(u=>`<button class="room-button ${g.selected.includes(u.id)?'selected':''}" data-action="decorate" data-id="${u.id}" aria-pressed="${g.selected.includes(u.id)}"><span aria-hidden="true">${u.icon}</span><b>${u.name}</b><br>${u.detail}</button>`).join('')}</div><div class="game-feedback" role="status">${g.selected.length===2?'Семья одобряет. Сэр Крампет уверяет, что состоялось голосование. Его не было.':'Всё необходимое уже есть. Эти маленькие роскоши — просто для радости.'}</div>`,g.selected.length===2);}
 const gameRenderers={care:gameCare,potting:gamePotting,photo:gamePhoto,raid:gameRaid,packing:gamePacking,decorate:gameDecorate};
 function gameComplete(id){const g=state.activities[id];return id==='care'?g?.done?.length===12:id==='potting'?g?.count>=3:id==='photo'?g?.done===true:id==='raid'?g?.round>=3:id==='packing'?g?.count>=4:id==='decorate'?g?.selected?.length===2:false;}
-function pageTools(count){return `<div class="page-tools"><button class="page-back" data-action="back" aria-label="Предыдущая страница" ${state.page===0?'disabled':''}>←</button><span>${Math.min(state.page+1,count)} / ${count}</span></div>`;}
+function pageTools(count){return `<div class="page-tools"><button class="page-back" data-action="back" aria-label="Предыдущая страница" ${state.page===0?'disabled':''}>←</button><span>${Math.min(state.page+1,count)} / ${count}</span>${restartButton()}</div>`;}
 function render(scroll=true){
  syncSound();if(!state.started){renderHome();queueFit();return;}if(state.finished||state.step>=STORY.length){renderEnding();queueFit();return;}
  const step=STORY[state.step],chapter=CHAPTERS[step.chapter],frames=storyFrames(step,state.lastResult);
@@ -65,11 +67,11 @@ function render(scroll=true){
  const playingGame=Boolean(step.game&&state.page===frames.length),frame=frames[Math.min(state.page,frames.length-1)];
  const progress=`<div class="chapter-progress" aria-label="Глава ${step.chapter+1} из 6">${CHAPTERS.map((_,i)=>`<span class="chapter-dot ${i<step.chapter?'done':i===step.chapter?'active':''}"></span>`).join('')}</div><div class="chapter-heading"><span class="chapter-title">${step.chapter+1}. ${chapter.title}</span><span class="chapter-count">${STORY.filter(s=>s.chapter===step.chapter).indexOf(step)+1} / 6</span></div>`;
  let content='';
- if(playingGame){content=`<div class="game-title"><span class="kicker">маленькое приключение</span><h2>${step.title}</h2></div>${gameRenderers[step.game]()}<div class="game-back"><button class="page-back" data-action="back">← К истории</button><span>без таймера · в своём темпе</span></div>`;}
+ if(playingGame){content=`<div class="game-title"><span class="kicker">маленькое приключение</span><h2>${step.title}</h2></div>${gameRenderers[step.game]()}<div class="game-back"><button class="page-back" data-action="back">← К истории</button>${restartButton()}</div>`;}
  else{
   const isChoice=frame.type==='choice',isOutcome=frame.type==='outcome';
-  const title=isOutcome?'Вот такой поворот!':isChoice?'Как поступим?':step.title;
-  const paragraphs=isChoice?'<p>Помоги им выбрать. Любви хватит на любой путь.</p>':frame.text.map(p=>`<p>${isOutcome?t(escapeHTML(p)):t(p)}</p>`).join('');
+  const title=isOutcome?'Вот такой поворот!':step.title;
+  const paragraphs=frame.text.map((p,i)=>`<p>${i<(frame.outcomeCount||0)||isOutcome?t(escapeHTML(p)):t(p)}</p>`).join('');
   const dialogue=frame.dialogue.map(d=>`<div class="dialogue ${d.speaker==='F'?'fari':''}"><span class="speaker">${d.speaker==='E'?escapeHTML(state.names[0]):d.speaker==='F'?escapeHTML(state.names[1]):escapeHTML(d.speaker)}</span><div class="line">«${t(d.line)}»</div></div>`).join('');
   const controls=isChoice?`<div class="choices">${step.choices.map((c,i)=>`<button class="choice" data-action="choose" data-index="${i}"><span>${t(c.text)}</span><span class="arrow" aria-hidden="true">↗</span></button>`).join('')}</div>`:button(state.page===frames.length-1?(step.game?'Немного поиграем':step.finish?'Наш счастливый финал':'Дальше'):'Дальше','next');
   content=`<div class="scene-frame story-scene">${sceneSVG(chapter.theme,{compact:true})}</div>${stats()}<article class="story-card"><div class="kicker">${isOutcome?'последствия твоего выбора':isChoice?'теперь твой ход':'маленький момент большой жизни'}</div><h2>${title}</h2>${paragraphs}${dialogue}</article><div class="reader-controls">${controls}${pageTools(frames.length+(step.game?1:0))}</div>`;
@@ -79,12 +81,12 @@ function render(scroll=true){
 }
 function renderHome(){
  const resume=state.step>0||state.finished;
- app.innerHTML=`<section class="hero screen screen-enter"><span class="tag">♡ маленькая история любви</span><h1>накорми<br><em>пати.</em></h1><p class="hero-description">Двое влюблённых. Семь собак.<br>Змеи. Рептилии. Слишком много растений.</p><div class="scene-frame">${sceneSVG('home')}<span class="scene-label">вся банда в сборе. держитесь.</span></div><div class="hero-meta"><span>около 15 минут</span><span>без прокрутки</span><span>много виззи</span></div><div class="resume-actions">${button(resume?'Продолжить приключение':'Да начнётся беспредел',resume?'resume':'start')}</div><button class="text-button" data-action="names">Дай имена влюблённым ↗</button></section>`;
+ app.innerHTML=`<section class="hero screen screen-enter"><span class="tag">♡ маленькая история любви</span><h1>накорми<br><em>пати.</em></h1><p class="hero-description">Двое влюблённых. Семь собак.<br>Змеи. Рептилии. Слишком много растений.</p><div class="scene-frame">${sceneSVG('home')}<span class="scene-label">вся банда в сборе. держитесь.</span></div><div class="hero-meta"><span>около 6 минут</span><span>без прокрутки</span><span>много виззи</span></div><div class="resume-actions">${button(resume?'Продолжить приключение':'Да начнётся беспредел',resume?'resume':'start')}</div><div class="home-tools"><button class="text-button" data-action="names">Дай имена влюблённым ↗</button>${state.started||state.page>0||resume?restartButton():''}</div></section>`;
 }
 function renderEnding(){
  const shop=state.choices.logo==='paws'?'Семь Лап и Джунгли':'Виззи Лист',selected=state.activities.decorate?.selected||[];
  const report=`<div class="ending-receipt"><div class="receipt-title">Семейный отчёт ♡</div><div class="receipt-row"><span>Под заботой</span><span>7 собак + 3 змеи + 2 рептилии</span></div><div class="receipt-row"><span>Зелёная империя</span><span>${shop}</span></div><div class="receipt-row"><span>Как она выросла</span><span>${state.choices.strategy==='brand'?'Любимый маленький бренд':'Процветающий питомник'}</span></div><div class="receipt-row"><span>Большие чувства</span><span>${state.love} и это не предел</span></div><div class="receipt-row"><span>Радости нового дома</span><span>${selected.map(id=>upgrades.find(u=>u.id===id)?.name).filter(Boolean).join(' + ')||'Место для всех'}</span></div><div class="receipt-row"><span>Вердикт Фасольки</span><span>«шмиззи-делюкс».</span></div></div>`;
- app.innerHTML=`<section class="ending screen screen-enter"><span class="tag">♡ все добрались домой</span><h1>${state.endingPage?'Счастье в цифрах.':'Состояние в листьях.<br>Целая жизнь <em>виззи.</em>'}</h1>${state.endingPage?report:`<div class="scene-frame">${sceneSVG('rich')}<span class="scene-label">и жили они долго и шмиззи</span></div><p class="ending-note">${escapeHTML(state.names[0])} и ${escapeHTML(state.names[1])} вырастили маленький магазин в большую жизнь.<br>Все накормлены. Все любимы.</p><span class="eyebrow">очень настоящее выдуманное состояние</span><span class="rich">${money(state.cash)} ₽</span>`}<div class="ending-controls">${state.endingPage?button('Поделиться историей','share'):button('Наш семейный отчёт','ending-report')}<button class="text-button" data-action="${state.endingPage?'restart-confirm':'share'}">${state.endingPage?'Ещё приключение, ещё виззи':'Поделиться историей ↗'}</button>${state.endingPage?'<button class="page-back" data-action="ending-main">← К счастливому финалу</button>':''}</div><p class="tiny-note">конец. завтраки продолжаются.</p></section>`;
+ app.innerHTML=`<section class="ending screen screen-enter"><span class="tag">♡ все добрались домой</span><h1>${state.endingPage?'Счастье в цифрах.':'Состояние в листьях.<br>Целая жизнь <em>виззи.</em>'}</h1>${state.endingPage?report:`<div class="scene-frame">${sceneSVG('rich')}<span class="scene-label">и жили они долго и шмиззи</span></div><p class="ending-note">${escapeHTML(state.names[0])} и ${escapeHTML(state.names[1])} вырастили маленький магазин в большую жизнь.<br>Все накормлены. Все любимы.</p><span class="eyebrow">очень настоящее выдуманное состояние</span><span class="rich">${money(state.cash)} ₽</span>`}<div class="ending-controls">${state.endingPage?button('Поделиться историей','share'):button('Наш семейный отчёт','ending-report')}<button class="text-button" data-action="${state.endingPage?'restart-confirm':'share'}">${state.endingPage?'Ещё приключение, ещё виззи':'Поделиться историей ↗'}</button>${state.endingPage?'<button class="page-back" data-action="ending-main">← К счастливому финалу</button>':''}</div>${!state.endingPage?restartButton():''}<p class="tiny-note">конец. завтраки продолжаются.</p></section>`;
  state.finished=true;state.started=true;save();if(!endingCelebrated){endingCelebrated=true;celebrate();}
 }
 function celebrate(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const root=$('#confetti');root.replaceChildren();for(let i=0;i<32;i++){const bit=document.createElement('span');bit.className='confetto';bit.style.left=`${Math.random()*100}%`;bit.style.background=['#f1b4a3','#9cb990','#f4d486','#b5c9b4'][i%4];bit.style.animationDelay=`${Math.random()*.7}s`;bit.style.borderRadius=i%2?'50%':'2px';root.appendChild(bit);}setTimeout(()=>root.replaceChildren(),3800);}
@@ -126,7 +128,7 @@ async function handleAction(el){
  else if(a==='pet-bio'){const pet=PETS.find(p=>p.id===id);if(!pet)return;$('#bio').innerHTML=`<strong>${pet.name}</strong><br>${pet.bio}<br><em>“${pet.quote}”</em>`;petSays(pet,true);}
  else if(a==='home'){state.started=false;save();modal.close();render();window.scrollTo({top:0,behavior:'instant'});}
  else if(a==='restart-confirm'){openModal('Начать новое приключение?',`<p class="modal-copy">Прогресс и решения на этом устройстве сбросятся. Имена героев и настройка звука останутся.</p><div class="menu-list">${button('Да, созываем совет завтрака','restart')}<button class="secondary" data-action="close">Оставить моё приключение</button></div>`);}
- else if(a==='restart'){const names=state.names,sound=state.sound;state=newState();endingCelebrated=false;state.names=names;state.sound=sound;save();modal.close();render();window.scrollTo({top:0,behavior:'instant'});}
+ else if(a==='restart'){clearTimeout(bubbleTimer);$('#pet-bubble').classList.remove('show');lastChatter=0;tapCount=0;const names=state.names,sound=state.sound;state=newState();endingCelebrated=false;state.names=names;state.sound=sound;save();modal.close();render();window.scrollTo({top:0,behavior:'instant'});}
  else if(a==='share'){const url=new URL('./',window.location.href).href;try{if(navigator.share){await navigator.share({title:'eblefari · накорми пати',text:'Семь собак. Змеи. Зелёное состояние. Приходи за своей порцией шмиззи.',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Ссылка скопирована. Неси шмиззи в мир!');}else throw new Error('Clipboard unavailable');}catch(e){if(e.name!=='AbortError')openModal('Поделись шмиззи',`<p class="modal-copy">Отправь эту ссылку любимому человеку:</p><input class="name-input" aria-label="Ссылка на историю" value="${escapeHTML(url)}" readonly>`);}}
 }
 document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(!el||el.disabled)return;handleAction(el);if(['next','back','choose','pot','photo-style','photo-post','raid','pack','decorate','ending-report','ending-main'].includes(el.dataset.action))tapReaction(el.dataset.action);});

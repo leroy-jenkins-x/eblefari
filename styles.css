@@ -39,3 +39,11 @@
 .bubble-copy{display:flex;flex-direction:column;gap:4px}.bubble-copy strong{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--green)}.bubble-copy>span{line-height:1.45;color:#74603b;font-weight:800}
 .dragon-float{animation:dragon-float 4s ease-in-out infinite}.bee-flight{animation:bee-flight 3s ease-in-out infinite}.fountain-water{animation:fountain 2s ease-in-out infinite}
 @keyframes dragon-float{50%{transform:translateY(-5px)}}@keyframes bee-flight{50%{transform:translate(9px,-5px)}}@keyframes fountain{50%{opacity:.55}}
+
+/* Small occasional speech in the illustration corner, with a slow fade. */
+#pet-bubble{top:calc(env(safe-area-inset-top) + 54px);left:auto;right:max(12px,calc((100vw - min(100vw,var(--screen-w,480px))) / 2 + 12px));bottom:auto;width:min(194px,56vw);max-width:194px;gap:7px;padding:8px 10px;border-width:1px;border-radius:15px 15px 4px 15px;box-shadow:0 3px 12px #364a3425;transform:translateY(-5px);font-size:11px;transition:opacity .8s ease,transform .8s ease}
+#pet-bubble.show{transform:translateY(0);transition:opacity .18s ease,transform .18s ease}
+.bubble-pet,.bubble-pet svg{width:32px;height:32px}.bubble-copy{gap:2px}.bubble-copy strong{font-size:8px;letter-spacing:.5px}.bubble-copy>span{font-size:11px;line-height:1.35}
+.restart-link{background:transparent;color:var(--muted);font-size:10px;line-height:1.3;padding:6px 4px;min-height:30px;white-space:nowrap}
+.restart-link:hover{color:var(--green)}.home-tools{display:flex;justify-content:center;align-items:center;gap:10px;flex:none}
+@container portrait (max-height:610px){.restart-link{font-size:9px;min-height:28px}.page-tools{font-size:9px}}

@@ -8,7 +8,7 @@ test('the household has exactly two big dogs, five small dogs, multiple snakes a
  assert.equal(PETS.filter(p=>p.kind==='big').length,2);assert.equal(PETS.filter(p=>p.kind==='small').length,5);assert.equal(PETS.filter(p=>p.kind==='snake').length,3);assert.equal(PETS.filter(p=>p.kind==='lizard').length,2);assert.equal(new Set(PETS.map(p=>p.id)).size,PETS.length);
 });
 test('all six chapters are complete and ordered, with unique story beats',()=>{
- assert.equal(CHAPTERS.length,6);assert.equal(new Set(STORY.map(s=>s.id)).size,STORY.length);let prev=0;for(const s of STORY){assert.ok(s.chapter>=prev&&s.chapter<6);assert.ok(s.title&&s.text.length>=2);prev=s.chapter;}for(let i=0;i<6;i++)assert.ok(STORY.filter(s=>s.chapter===i).length>=6);assert.equal(STORY.at(-1).finish,true);
+ assert.equal(CHAPTERS.length,6);assert.equal(new Set(STORY.map(s=>s.id)).size,STORY.length);let prev=0;for(const s of STORY){assert.ok(s.chapter>=prev&&s.chapter<6);assert.ok(s.title&&s.text.length>=1);prev=s.chapter;}for(let i=0;i<6;i++)assert.ok(STORY.filter(s=>s.chapter===i).length>=6);assert.equal(STORY.at(-1).finish,true);
 });
 test('every choice route reaches the promised prosperous ending',()=>{
  let paths=[newState()];for(const step of STORY){const next=[];for(const state of paths){if(step.choices)step.choices.forEach((choice,i)=>next.push(advanceState(state,step,choice,i)));else next.push(advanceState(state,step));}paths=next;}

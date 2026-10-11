@@ -1,4 +1,4 @@
-// Story pages preserve every sentence while keeping each reading screen short.
+// Short scenes share one screen with their choice and the preceding result.
 const words=text=>text.trim().split(/\s+/u).filter(Boolean).length;
 export function splitParagraph(text,limit=34){
  const sentences=text.match(/[^.!?…]+(?:[.!?…]+[»”]?|$)/gu)||[text];
@@ -8,9 +8,12 @@ export function splitParagraph(text,limit=34){
  }if(current)chunks.push(current);return chunks.length?chunks:[text];
 }
 export function storyFrames(step,result=''){
- const frames=[];if(result)frames.push({type:'outcome',text:[result],dialogue:[]});
- let frame={type:'reading',text:[],dialogue:[]};const flush=()=>{if(frame.text.length||frame.dialogue.length)frames.push(frame);frame={type:'reading',text:[],dialogue:[]};};
- for(const paragraph of step.text)for(const chunk of splitParagraph(paragraph)){if(frame.text.length&&words([...frame.text,chunk].join(' '))>34)flush();frame.text.push(chunk);}flush();
- for(const line of step.dialogue||[]){if(frame.dialogue.length&&(frame.dialogue.length>=2||words([...frame.dialogue.map(d=>d.line),line.line].join(' '))>26))flush();frame.dialogue.push(line);}flush();
- if(step.choices)frames.push({type:'choice',text:[],dialogue:[]});return frames;
+ const frames=[];let frame={type:'reading',text:[],dialogue:[]};
+ const flush=()=>{if(frame.text.length||frame.dialogue.length)frames.push(frame);frame={type:'reading',text:[],dialogue:[]};};
+ const addText=(text,isResult=false)=>{for(const chunk of splitParagraph(text)){if(words([...frame.text,...frame.dialogue.map(d=>d.line),chunk].join(' '))>34)flush();frame.text.push(chunk);if(isResult){frame.outcome=true;frame.outcomeCount=(frame.outcomeCount||0)+1;}}};
+ if(result)addText(result,true);
+ for(const paragraph of step.text)addText(paragraph);
+ for(const line of step.dialogue||[]){if(frame.dialogue.length>=2||words([...frame.text,...frame.dialogue.map(d=>d.line),line.line].join(' '))>34)flush();frame.dialogue.push(line);}flush();
+ if(step.choices){if(!frames.length)frames.push({type:'reading',text:[],dialogue:[]});frames.at(-1).type='choice';}
+ return frames;
 }
