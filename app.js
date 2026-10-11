@@ -1,7 +1,7 @@
-import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-2';
-import {STORY,CHAPTERS} from './story.js?v=portrait-2';
-import {storyFrames} from './layout.js?v=portrait-2';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-2';
+import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-3';
+import {STORY,CHAPTERS} from './story.js?v=portrait-3';
+import {storyFrames} from './layout.js?v=portrait-3';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-3';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
@@ -10,7 +10,7 @@ const $=(s)=>document.querySelector(s);
 // Optional development frame dimensions let the same responsive container be checked.
 const frameParam=new URL(window.location.href).searchParams.get('frame');
 if(frameParam&&/^\d{3}x\d{3,4}$/.test(frameParam)){const [w,h]=frameParam.split('x').map(Number);if(w>=280&&w<=480&&h>=460&&h<=1100){document.documentElement?.style.setProperty('--screen-w',w+'px');document.documentElement?.style.setProperty('--screen-h',h+'px');}}
-function fitViewport(){if(!app.clientHeight)return;app.classList.remove('fit-compact','fit-tiny');if(app.scrollHeight>app.clientHeight+2)app.classList.add('fit-compact');if(app.scrollHeight>app.clientHeight+2)app.classList.add('fit-tiny');}
+function fitViewport(){if(!app.clientHeight)return;const overflow=()=>{const card=app.querySelector('.story-card');return app.scrollHeight>app.clientHeight+2||Boolean(card&&card.scrollHeight>card.clientHeight+2);};app.classList.remove('fit-compact','fit-tiny');if(overflow())app.classList.add('fit-compact');if(overflow())app.classList.add('fit-tiny');}
 function queueFit(){if(window.requestAnimationFrame)window.requestAnimationFrame(fitViewport);}
 window.addEventListener?.('resize',fitViewport);window.visualViewport?.addEventListener('resize',fitViewport);document.fonts?.ready.then(fitViewport);
 
