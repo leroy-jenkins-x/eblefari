@@ -1,14 +1,18 @@
-import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-3';
-import {STORY,CHAPTERS} from './story.js?v=portrait-3';
-import {storyFrames} from './layout.js?v=portrait-3';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-3';
+import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-4';
+import {STORY,CHAPTERS} from './story.js?v=portrait-4';
+import {storyFrames} from './layout.js?v=portrait-4';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-4';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
 try{state=hydrate(localStorage.getItem(SAVE_KEY),STORY.length);}catch{state=newState();canSave=false;}
 const $=(s)=>document.querySelector(s);
 // Optional development frame dimensions let the same responsive container be checked.
-const frameParam=new URL(window.location.href).searchParams.get('frame');
+const frameParams=new URL(window.location.href).searchParams;
+const frameParam=frameParams.get('frame');
+const previewStep=frameParam&&/^\d{3}x\d{3,4}$/.test(frameParam)?STORY.findIndex(s=>s.id===frameParams.get('scene')):-1;
+const readonlyPreview=previewStep>=0;
+if(readonlyPreview){state={...state,step:previewStep,page:Math.max(0,Number(frameParams.get('page'))||0),started:true,finished:false};}
 if(frameParam&&/^\d{3}x\d{3,4}$/.test(frameParam)){const [w,h]=frameParam.split('x').map(Number);if(w>=280&&w<=480&&h>=460&&h<=1100){document.documentElement?.style.setProperty('--screen-w',w+'px');document.documentElement?.style.setProperty('--screen-h',h+'px');}}
 function fitViewport(){if(!app.clientHeight)return;const overflow=()=>{const card=app.querySelector('.story-card');return app.scrollHeight>app.clientHeight+2||Boolean(card&&card.scrollHeight>card.clientHeight+2);};app.classList.remove('fit-compact','fit-tiny');if(overflow())app.classList.add('fit-compact');if(overflow())app.classList.add('fit-tiny');}
 function queueFit(){if(window.requestAnimationFrame)window.requestAnimationFrame(fitViewport);}
@@ -19,7 +23,7 @@ const button=(text,action,extra='')=>`<button class="primary" data-action="${act
 const plantNames={monstera:'Монстера',flower:'Цветущее растение',cactus:'Кактус'};
 const potTasks=[{plant:'monstera',hint:'Большие резные листья. Великолепный зелёный король драмы.'},{plant:'flower',hint:'Маленькая цветущая радость. Будто умеет кастовать лечение.'},{plant:'cactus',hint:'Колючий вышибала. Денис готов к своему крошечному горшку.'}];
 const upgrades=[{id:'thrones',icon:'♛',name:'Крошечные троны рептилиям',detail:'Мебель наконец соответствует званию Сэра Крампета.'},{id:'sofa',icon:'☁',name:'Диван судьбы',detail:'Семь собак. Два человека. Никакого личного пространства.'},{id:'gaming',icon:'✧',name:'Уютный игровой уголок',detail:'Два компьютера рядом. Общая полка с вкусняшками.'},{id:'garden',icon:'✿',name:'Нелепо прекрасная арка',detail:'Для поцелуев в саду и эффектного появления собак.'}];
-function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));canSave=true;}catch{canSave=false;}}
+function save(){if(readonlyPreview)return;try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));canSave=true;}catch{canSave=false;}}
 function chirp(kind='tap'){
  if(!state.sound)return;
  try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();audioContext.resume();const now=audioContext.currentTime;const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.connect(gain);gain.connect(audioContext.destination);osc.type='sine';const freq=kind==='good'?620:kind==='pet'?410:490;osc.frequency.setValueAtTime(freq,now);osc.frequency.exponentialRampToValueAtTime(freq*(kind==='good'?1.5:.75),now+.13);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.045,now+.015);gain.gain.exponentialRampToValueAtTime(.0001,now+.21);osc.start(now);osc.stop(now+.23);}catch{}
