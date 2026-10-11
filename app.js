@@ -1,7 +1,7 @@
-import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-4';
-import {STORY,CHAPTERS} from './story.js?v=portrait-4';
-import {storyFrames} from './layout.js?v=portrait-4';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-4';
+import {PETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-5';
+import {STORY,CHAPTERS} from './story.js?v=portrait-5';
+import {storyFrames} from './layout.js?v=portrait-5';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-5';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
