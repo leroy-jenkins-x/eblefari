@@ -155,5 +155,5 @@ export function sceneSVG(theme='home',options={}){
  positions.forEach((p,i)=>{back+=`<g transform="translate(${p[0]} ${p[1]}) scale(${p[2]})"><g class="bob ${i%2?'slow':''}">${petDrawing(PETS[i])}</g></g>`;});
  if(options.bomb){back+=`<g transform="translate(283 163) scale(1.5)">${petDrawing(PETS[4])}</g>`;}
  back+=`<g transform="translate(12 193) scale(.64)">${plantDrawing('monstera')}</g><g transform="translate(380 198) scale(.62)">${plantDrawing('cactus')}</g><path class="sparkle" d="m30 159 4-10 4 10 10 4-10 4-4 10-4-10-10-4ZM408 204l3-7 3 7 7 3-7 3-3 7-3-7-7-3Z" fill="#f9f2d7"/>`;
- return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${options.compact?75:0} 440 ${options.compact?215:300}" role="img" aria-label="Пара по фотографии: героиня со светлыми цветными дредами в тёмной футболке, лысый бородатый герой в жёлтой футболке; две большие и пять маленьких собак, растения и рептилии">${back}</svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${options.compact?40:0} ${options.compact?75:0} ${options.compact?380:440} ${options.compact?215:300}" role="img" aria-label="Пара по фотографии: героиня со светлыми цветными дредами в тёмной футболке, лысый бородатый герой в жёлтой футболке; две большие и пять маленьких собак, растения и рептилии">${back}</svg>`;
 }
