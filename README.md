@@ -1,44 +1,53 @@
-# eblefari · feed the party
+# eblefari · накорми пати
 
-A portrait-first, roughly 15-minute interactive love story: two sweethearts, exactly two big dogs and five small dogs, three snakes, two reptiles, a very leafy business, and a Lineage 2 guild. Cute chaos, random “wizzy / pizzy / shmizzy” pet chatter, and a guaranteed prosperous ending.
+Милая и безумная интерактивная история на русском: двое влюблённых, две большие и пять маленьких собак, три змеи, две рептилии, растения на продажу и гильдия Lineage 2. В финале — процветающий бизнес, большое состояние и всё тот же пушистый беспредел.
 
-## Play
+## Что внутри
 
-Open the deployed GitHub Pages URL. The experience is self-paced and works with touch, mouse, or keyboard. No account or payment is required. Progress, chosen names, and sound preference save in this browser’s local storage when available. Clearing browser data resets progress. Sound is optional and starts off.
+- Шесть глав и 36 сюжетных сцен, примерно на 15 минут неспешной игры.
+- Одиннадцать решений и 2048 комбинаций выбора. Все пути заканчиваются счастливо.
+- Шесть маленьких занятий: уход за питомцами, посадка растений, фотосъёмка с собакой, рейд, упаковка заказов и обустройство дома.
+- Двенадцать биографий питомцев и случайные «виззи», «пиззи», «шмиззи» с паузами между репликами.
+- Оригинальная векторная иллюстрация семьи, анимация, необязательные звуки, имена героев на выбор.
+- Автосохранение прогресса в этом браузере и поддержка клавиатуры, сенсорного экрана и режима уменьшенной анимации.
 
-Six chapters, 36 story beats, six touch activities, twelve pet biographies, branching conversations, an original illustrated household, and a personalised final household report. Choices rejoin the main story so every route honours the happy ending. Timing depends on reading speed and how many pet biographies you inspect; approximately 12–18 minutes is the design target.
+Игра рассчитана на вертикальный экран телефона. Время зависит от чтения и изучения питомцев. Никаких обязательных таймеров, аккаунтов и платежей. Основные события занимают около 12–18 минут. Все денежные суммы — выдумка.
 
-The two characters currently use original, editable SVG art and default names Eble & Fari. Names can be changed in the game. A user-supplied reference photo still needs to be attached or otherwise made readable before the likenesses can be matched. Pets are fictional personalities; their care scenes refer to an established household care plan rather than offering veterinary instructions. Lineage 2 is referenced as a hobby; no game assets, logos, or commercial integration are used.
+Персонажи пока нарисованы самостоятельно, с именами Эбле и Фари. Чтобы повторить внешность людей с фотографии, исходное изображение нужно приложить к рабочему чату: из переданной ссылки удалось получить текст, но не само фото. Имена меняются в меню игры.
 
-## Run locally
+## Запуск
 
-Serve the repository as static files, for example `python -m http.server 8000`, and open `http://localhost:8000`. A web server is necessary for JavaScript ES modules; opening `index.html` directly as a `file://` URL is not supported.
+Это статические HTML, CSS и JavaScript без сборки и установки зависимостей. Для локального запуска:
 
-No build step, package installation, backend, analytics, or external API key is required. Google Fonts is optional; local font fallbacks keep the game playable when offline or fonts are blocked.
+```sh
+python -m http.server 8000
+```
 
-## Check
+Откройте `http://localhost:8000`. Файлы используют JavaScript-модули, поэтому прямое открытие через `file://` не поддерживается. Шрифты Google необязательны: если они недоступны, используются системные.
 
-Node.js 20+:
+## Проверки
+
+Node.js 20 или новее:
 
 ```sh
 npm run check
 npm test
 ```
 
-Checks cover all branching routes, the complete household, story ordering, save recovery, name escaping, resource limits, raid answers, order matching, and inline art.
+Проверки охватывают все развилки, состав семьи, порядок глав, сохранения, безопасность пользовательских имён, границы показателей и полное прохождение через настоящие обработчики игры. Этот тест не заменяет проверку верстки в браузере.
 
-## Publish with GitHub Pages
+## GitHub Pages
 
-In **Settings → Pages**, choose **Deploy from a branch → main → /(root)** and save. GitHub will serve `index.html` and relative assets under the repository path. Future commits publish automatically. The `.nojekyll` file keeps the project buildless.
+В репозитории откройте **Settings → Pages → Deploy from a branch → main → /(root)** и сохраните. Pages опубликует `index.html` и связанные файлы. Следующие коммиты обновляют сайт. Файл `.nojekyll` оставляет проект без сборки.
 
-Alternatively, the included Pages workflow supports **Settings → Pages → GitHub Actions**. It checks the project, packages just the web files, and deploys to the `github-pages` environment.
+Другой вариант: **Settings → Pages → GitHub Actions**. В комплекте есть `.github/workflows/pages.yml`, который проверяет код и публикует только игровые файлы.
 
-## Edit
+## Файлы
 
-- `story.js`: chapter text, choices, outcomes and pacing.
-- `art.js`: the pet cast and original vector illustrations.
-- `app.js`: presentation, activities, audio, dialogs and progress saving.
-- `engine.js`: pure state handling and mini-game data.
-- `styles.css`: responsive portrait layout, colours and motion. Reduced-motion preferences are honoured.
+- `story.js` — русский сюжет, главы, решения и последствия.
+- `art.js` — питомцы и оригинальная векторная графика.
+- `app.js` — интерфейс, мини-игры, диалоги, звук и сохранение.
+- `engine.js` — работа с состоянием и данные заданий.
+- `styles.css` — оформление вертикального экрана и анимация.
 
-All functionality is client-side. The only network requests in gameplay are loading the site files and the optional Google Fonts stylesheet/font files.
+Все игровые действия выполняются на устройстве пользователя. Прогресс исчезнет при очистке данных браузера. Проект не связан с создателями Lineage 2 и не использует графику или музыку из игры.
