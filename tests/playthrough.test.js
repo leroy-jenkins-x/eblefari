@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STORY} from '../story.js';
+import {storyFrames} from '../layout.js';
 import {PETS} from '../art.js';
 import {SAVE_KEY,RAID,ORDERS} from '../engine.js';
 
@@ -27,8 +28,12 @@ test('a complete playthrough handles all activities, errors, saves, names and re
   const click=(action,data={})=>handlers.click({target:{closest:()=>({dataset:{action,...data}})}});
   assert.match(html(),/Да начнётся беспредел/);click('names');document.querySelector('#name-1').value='Ada <3';document.querySelector('#name-2').value='Finn & Fern';handlers.submit({target:{id:'names-form'},preventDefault(){}});click('start');assert.match(html(),/Ada &lt;3/);
   for(const step of STORY){
-   assert.equal(state().step,STORY.indexOf(step));assert.ok(html().includes(step.title));
+   assert.equal(state().step,STORY.indexOf(step));assert.ok(html().includes('data-step="'+step.id+'"'));
+   const frames=storyFrames(step,state().lastResult);
+   while(state().page<frames.length-1)click('next');
    if(step.game){
+    click('next');
+    assert.equal(state().page,frames.length);
     click('next');assert.equal(state().step,STORY.indexOf(step),'incomplete games cannot be skipped');
     if(step.game==='care'){for(const p of PETS)click('care',{id:p.id});click('care',{id:PETS[0].id});assert.equal(state().activities.care.done.length,12);}
     if(step.game==='potting'){click('pot',{id:'cactus'});assert.equal(state().activities.potting.count,0);for(const id of ['monstera','flower','cactus'])click('pot',{id});}
@@ -39,7 +44,7 @@ test('a complete playthrough handles all activities, errors, saves, names and re
     click('next');
    }else if(step.choices)click('choose',{index:'0'});else click('next');
   }
-  assert.equal(state().finished,true);assert.ok(state().cash>2000000);assert.match(html(),/и жили они долго и шмиззи/);assert.match(html(),/Крошечные троны рептилиям/);
+  assert.equal(state().finished,true);assert.ok(state().cash>2000000);assert.match(html(),/и жили они долго и шмиззи/);click('ending-report');assert.match(html(),/Крошечные троны рептилиям/);
   click('home');assert.match(html(),/Продолжить приключение/);click('resume');assert.match(html(),/Семейный отчёт/);
   click('restart-confirm');assert.equal(elements.get('#modal').open,true);click('restart');assert.equal(state().step,0);assert.equal(state().finished,false);assert.deepEqual(state().names,['Ada <3','Finn & Fern']);assert.match(html(),/Да начнётся беспредел/);
  }finally{globalThis.setTimeout=originalTimeout;}
