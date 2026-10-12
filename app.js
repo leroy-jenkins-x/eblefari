@@ -1,7 +1,7 @@
-import {PETS,CARE_TARGETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-13';
-import {STORY,CHAPTERS} from './story.js?v=portrait-13';
-import {storyFrames} from './layout.js?v=portrait-13';
-import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-13';
+import {PETS,CARE_TARGETS,petSVG,plantSVG,sceneSVG} from './art.js?v=portrait-14';
+import {STORY,CHAPTERS} from './story.js?v=portrait-14';
+import {storyFrames} from './layout.js?v=portrait-14';
+import {SAVE_KEY,newState,hydrate,advanceState,interpolate,escapeHTML,money,RAID,ORDERS,CHATTER} from './engine.js?v=portrait-14';
 
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 let state,canSave=true,audioContext,bubbleTimer,toastTimer,chatterTimer,lastChatter=0,albumIndex=0,endingCelebrated=false;
@@ -14,7 +14,7 @@ const previewStep=frameParam&&/^\d{3}x\d{3,4}$/.test(frameParam)?STORY.findIndex
 const readonlyPreview=previewStep>=0;
 if(readonlyPreview){state={...state,step:previewStep,page:Math.max(0,Number(frameParams.get('page'))||0),started:true,finished:false};}
 if(frameParam&&/^\d{3}x\d{3,4}$/.test(frameParam)){const [w,h]=frameParam.split('x').map(Number);if(w>=280&&w<=480&&h>=460&&h<=1100){document.documentElement?.style.setProperty('--screen-w',w+'px');document.documentElement?.style.setProperty('--screen-h',h+'px');}}
-function fitViewport(){const height=window.visualViewport?.height||window.innerHeight;if(!frameParam&&height&&(!window.visualViewport||window.visualViewport.scale===1))document.documentElement?.style.setProperty('--viewport-h',Math.round(height)+'px');if(!app.clientHeight)return;const overflow=()=>{const card=app.querySelector('.story-card');return app.scrollHeight>app.clientHeight+2||Boolean(card&&card.scrollHeight>card.clientHeight+2);};app.classList.remove('fit-compact','fit-tiny');if(overflow())app.classList.add('fit-compact');if(overflow())app.classList.add('fit-tiny');}
+function fitViewport(){const height=window.visualViewport?.height||window.innerHeight;if(!frameParam&&height&&(!window.visualViewport||window.visualViewport.scale===1))document.documentElement?.style.setProperty('--viewport-h',Math.round(height)+'px');if(!app.clientHeight)return;const overflow=()=>{const card=app.querySelector('.story-card'),activity=app.querySelector('.activity');return app.scrollHeight>app.clientHeight+2||Boolean(card&&card.scrollHeight>card.clientHeight+2)||Boolean(activity&&activity.scrollHeight>activity.clientHeight+2);};app.classList.remove('fit-compact','fit-tiny');if(overflow())app.classList.add('fit-compact');if(overflow())app.classList.add('fit-tiny');}
 function queueFit(){if(window.requestAnimationFrame)window.requestAnimationFrame(fitViewport);}
 window.addEventListener?.('resize',fitViewport);window.visualViewport?.addEventListener('resize',fitViewport);document.fonts?.ready.then(fitViewport);
 
