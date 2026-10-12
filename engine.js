@@ -1,4 +1,4 @@
-import {PETS} from './art.js?v=portrait-11';
+import {PETS} from './art.js?v=portrait-12';
 export const SAVE_KEY='eblefari-party-v1';
 export const INITIAL={version:1,step:0,page:0,endingPage:0,started:false,finished:false,cash:38,energy:80,love:100,names:['Эбле','Энжи'],choices:{},activities:{},lastResult:'',sound:false,petVisits:[]};
 export function newState(){return structuredClone(INITIAL);}
