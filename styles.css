@@ -62,3 +62,47 @@ button:active:not(:disabled){transform:translateY(2px) scale(.965)}
 @keyframes bubble-words{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:translateX(0)}}
 @keyframes tap-spark{0%{opacity:0;transform:scale(.45) rotate(-20deg)}30%{opacity:1;transform:scale(1) rotate(8deg)}100%{opacity:0;transform:translateY(-16px) scale(.7) rotate(35deg)}}
 @keyframes tap-ring{from{opacity:.65;transform:scale(.3)}to{opacity:0;transform:scale(1.8)}}
+
+/* A two-action raid: one clear target, visible health and immediate feedback. */
+.raid-activity{gap:11px;justify-content:flex-start;padding:15px}
+.raid-arena{height:clamp(150px,29cqh,260px);flex:none;border-radius:15px;background:#29354e}
+.raid-healths{display:grid;grid-template-columns:1fr 1fr;gap:13px;flex:none}
+.raid-health>span{display:flex;justify-content:space-between;font-size:11px;line-height:1.4;color:var(--green);margin-bottom:5px;gap:5px}
+.raid-track{height:11px;border-radius:12px;background:#dfded0;overflow:hidden}
+.raid-track i{height:100%;display:block;border-radius:12px;background:#8bb48b}
+.raid-track .party-low{background:#dc9d79}.raid-track .boss-full,.raid-track .boss-drained{background:#d77b72}
+.party-restored{animation:restore-party .65s ease-out}.boss-drained{animation:drain-boss .75s ease-out}
+.raid-message{display:flex;flex-direction:column;gap:5px;flex:none;padding:11px 12px;background:#fff8e4;border-radius:13px}
+.raid-message strong{font:800 16px/1.35 var(--font);color:var(--green)}.raid-message>span{font-size:12px;line-height:1.45;color:#786a50}
+.raid-activity .raid-action{min-height:77px;text-align:left;justify-content:flex-start;gap:12px;padding:12px 15px;animation:raid-invitation 2s ease-in-out infinite}
+.raid-action-icon{font-size:32px;flex:none;line-height:1}.raid-action-copy{display:flex;flex-direction:column;gap:3px;flex:1}.raid-action-copy small{font-size:10px;line-height:1.3;opacity:.8;font-weight:600}.raid-action-copy strong{font-size:17px;line-height:1.35}
+.raid-victory{position:absolute;top:12px;left:50%;transform:translateX(-50%);padding:7px 15px;border-radius:18px;color:#6b582a;background:#ffe7aa;font:800 16px/1.3 var(--font);white-space:nowrap;animation:victory-arrive .5s ease-out}
+.raid-shield{animation:shield-arrive .5s ease-out;transform-box:fill-box;transform-origin:center}
+.boss-defeated{animation:boss-fall .75s ease-out forwards;transform-box:fill-box;transform-origin:center}
+.raid-impact{animation:impact-arrive .5s ease-out;transform-box:fill-box;transform-origin:center}
+@keyframes restore-party{from{width:35%}to{width:100%}}@keyframes drain-boss{from{width:100%}to{width:0}}
+@keyframes raid-invitation{50%{box-shadow:0 3px 0 #2f4e3c,0 0 0 5px #81aa7d33}}
+@keyframes shield-arrive{from{opacity:0;transform:scale(.65)}70%{transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+@keyframes boss-fall{30%{transform:translateX(5px) rotate(-6deg)}to{opacity:.4;transform:translate(12px,20px) rotate(16deg) scale(.75)}}
+@keyframes impact-arrive{from{opacity:0;transform:scale(.5)}65%{opacity:1;transform:scale(1.16)}to{transform:scale(1)}}
+@keyframes victory-arrive{from{opacity:0;translate:0 -10px}to{opacity:1;translate:0 0}}
+@container portrait (max-height:700px){.raid-activity{gap:9px;padding:12px}.raid-arena{height:180px}.raid-activity .raid-action{min-height:65px}.raid-message strong{font-size:14px}.raid-message>span{font-size:11px}.raid-action-copy strong{font-size:15px}}
+@container portrait (max-height:610px){.raid-activity{gap:7px;padding:10px}.raid-arena{height:140px}.raid-message{padding:8px 10px}.raid-message strong{font-size:13px}.raid-message>span{font-size:10px}.raid-activity .raid-action{min-height:58px;padding:9px 11px}.raid-action-copy strong{font-size:14px}.raid-action-copy small{font-size:9px}.raid-action-icon{font-size:25px}.raid-health>span{font-size:10px}.raid-healths{gap:9px}.raid-track{height:9px}}
+
+/* Explicit plant steps, one action target and a lasting selection receipt. */
+.plant-activity{gap:11px;justify-content:flex-start}
+.task-steps{display:flex;list-style:none;padding:0;margin:0;gap:6px;flex:none}
+.task-step{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 3px;border:1px solid #dfe2d2;border-radius:11px;background:#f9faef;color:#979b8a}
+.task-step>span{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#e5e6d8;font-size:10px;font-weight:800;line-height:1}
+.task-step small{font-size:9px;line-height:1.2;white-space:nowrap}.task-step.current{border:2px solid var(--coral);background:#fff1df;color:var(--green);padding:6px 2px}.task-step.current>span{background:var(--coral);color:white}.task-step.done{background:#e5edda;color:var(--green);border-color:#a9c29a}.task-step.done>span{background:var(--green);color:white}
+.plant-task{flex:1;min-height:110px;display:flex;align-items:center;justify-content:center;gap:15px;border-radius:16px;border:1px solid #dce1cd;background:#fffdf3;padding:15px 10px;animation:plant-step-enter .35s ease-out}
+.plant-task-picture{flex:0 0 42%;max-width:155px}.plant-task-picture svg{display:block;width:100%;max-height:180px}
+.plant-task-copy{flex:1;min-width:0}.plant-task-copy>span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--coral);font-weight:800}.plant-task-copy strong{font:600 22px/1.35 var(--display);display:block;color:var(--green);margin-top:6px}.plant-task-copy p{font-size:12px;line-height:1.5;margin:7px 0 0}
+.plant-receipt{flex:none;display:flex;gap:9px;align-items:center;background:#e4edd9;border:1px solid #b5c8a7;border-radius:13px;padding:8px 10px;min-height:58px;animation:receipt-arrive .4s ease-out}
+.plant-receipt svg{width:43px;height:43px;flex:none}.plant-receipt strong{display:block;font-size:12px;line-height:1.3;color:var(--green)}.plant-receipt small{display:block;font-size:10px;line-height:1.4;color:#727d65;margin-top:4px}.plant-receipt.empty{background:#f5f4e8;border-color:#e1e3d3;font-size:11px;color:#858975;animation:none}
+.plant-action>span:first-child{display:flex;flex-direction:column;gap:3px;text-align:left}.plant-action small{font-size:10px;line-height:1.3;opacity:.8;font-weight:600}.plant-action strong{font-size:16px;line-height:1.3}.plant-activity .plant-action{min-height:68px}
+.plant-finished{flex:1;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}.plant-finished>span{color:var(--green);font-size:36px;line-height:1;animation:receipt-arrive .4s ease-out}.plant-finished strong{font-size:17px;color:var(--green);text-align:center}.finished-plants{display:flex;justify-content:center}.finished-plants svg{width:65px;height:65px;max-width:25%}
+.photo-selection{font-size:11px;font-weight:800;color:var(--green);border-radius:9px;background:#e4edd9;padding:6px 9px}.game-option{position:relative}.game-option.selected{border:2px solid var(--green)}.game-option.selected::after{content:'✓';position:absolute;top:4px;right:5px;width:16px;height:16px;line-height:16px;font-size:10px;border-radius:50%;background:var(--green);color:white}
+@keyframes receipt-arrive{from{opacity:0;transform:translateY(5px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes plant-step-enter{from{opacity:.5;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
+@container portrait (max-height:700px){.plant-activity{gap:9px}.plant-task{padding:10px;gap:10px}.plant-task-picture{max-width:120px}.plant-task-copy strong{font-size:20px}.plant-task-copy p{font-size:11px}.plant-activity .plant-action{min-height:61px}}
+@container portrait (max-height:610px){.plant-activity{gap:7px}.task-step{padding:5px 2px;gap:3px}.task-step.current{padding:4px 1px}.task-step small{font-size:8px}.task-step>span{width:17px;height:17px;font-size:9px}.plant-task{min-height:95px;gap:8px;padding:8px}.plant-task-picture{max-width:90px}.plant-task-copy strong{font-size:17px}.plant-task-copy p{font-size:10px;margin-top:5px}.plant-task-copy>span{font-size:8px}.plant-receipt{min-height:49px;padding:6px 8px;gap:7px}.plant-receipt svg{width:33px;height:33px}.plant-receipt strong{font-size:10px}.plant-receipt small{font-size:9px;margin-top:3px}.plant-receipt.empty{font-size:10px}.plant-activity .plant-action{min-height:54px}.plant-action small{font-size:9px}.plant-action strong{font-size:13px}.photo-selection{font-size:10px;padding:5px 7px}.activity:has(.photo-preview) .task-steps{gap:4px}.plant-finished strong{font-size:14px}.finished-plants svg{width:52px;height:52px}}

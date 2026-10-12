@@ -32,14 +32,14 @@ test('a complete playthrough handles all activities, errors, saves, names and re
    const frames=storyFrames(step,state().lastResult);
    while(state().page<frames.length-1)click('next');
    if(step.game){
-    click('next');
+    if(step.game!=='raid')click('next');
     assert.equal(state().page,frames.length);
     click('next');assert.equal(state().step,STORY.indexOf(step),'incomplete games cannot be skipped');
     if(step.game==='care'){for(const p of CARE_TARGETS)click('care',{id:p.id});click('care',{id:PETS[0].id});assert.equal(CARE_TARGETS.length,5);assert.equal(state().activities.care.done.length,PETS.length);}
-    if(step.game==='potting'){click('pot',{id:'cactus'});assert.equal(state().activities.potting.count,0);for(const id of ['monstera','flower','cactus'])click('pot',{id});}
+    if(step.game==='potting'){click('pot',{id:'cactus'});assert.equal(state().activities.potting.count,0);for(const [id,label] of [['monstera','Монстера посажена'],['flower','Цветок посажен'],['cactus','Кактус посажен']]){click('pot',{id});assert.ok(html().includes('✓ '+label));}assert.match(html(),/Все растения посажены/);}
     if(step.game==='photo'){click('photo-style',{id:'chaos'});click('photobomb');assert.match(html(),/Пригласить креативного директора|Опубликовать эту красоту/);click('photo-post');}
-    if(step.game==='raid'){click('raid',{id:'heal'});assert.equal(state().activities.raid.round,0);for(const r of RAID)click('raid',{id:r.correct});}
-    if(step.game==='packing'){click('pack',{id:'cactus'});assert.equal(state().activities.packing.count,0);for(const o of ORDERS)click('pack',{id:o.plant});}
+    if(step.game==='raid'){assert.match(html(),/Защитить Энжи/);click('raid',{id:'heal'});assert.equal(state().activities.raid.round,0);click('raid',{id:RAID[0].correct});assert.match(html(),/Победить босса/);assert.match(html(),/party-restored/);click('raid',{id:RAID[1].correct});assert.match(html(),/ПОБЕДА/);assert.match(html(),/boss-drained/);}
+    if(step.game==='packing'){click('pack',{id:'cactus'});assert.equal(state().activities.packing.count,0);for(const o of ORDERS){click('pack',{id:o.plant});assert.ok(html().includes('Для '+o.name));}assert.match(html(),/Все посылки готовы/);}
     if(step.game==='decorate'){click('decorate',{id:'sofa'});click('decorate',{id:'gaming'});click('decorate',{id:'thrones'});assert.deepEqual(state().activities.decorate.selected,['sofa','gaming']);click('decorate',{id:'sofa'});click('decorate',{id:'thrones'});}
     click('next');
    }else if(step.choices)click('choose',{index:'0'});else click('next');

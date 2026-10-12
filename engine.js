@@ -1,4 +1,4 @@
-import {PETS} from './art.js?v=portrait-10';
+import {PETS} from './art.js?v=portrait-11';
 export const SAVE_KEY='eblefari-party-v1';
 export const INITIAL={version:1,step:0,page:0,endingPage:0,started:false,finished:false,cash:38,energy:80,love:100,names:['Эбле','Энжи'],choices:{},activities:{},lastResult:'',sound:false,petVisits:[]};
 export function newState(){return structuredClone(INITIAL);}
@@ -12,6 +12,7 @@ export function hydrate(raw,total){try{
  const activities=s.activities&&typeof s.activities==='object'?structuredClone(s.activities):{};
  if(activities.care&&typeof activities.care==='object'){activities.care.done=migrateIds(activities.care.done);}
  const renameText=text=>typeof text==='string'?text.replaceAll('Пельмешем','Колой').replaceAll('Пельмеша','Колы').replaceAll('Пельмеш','Кола').replaceAll('Фасольки','Гемиры').replaceAll('Фасолька','Гемира').replaceAll('Огурчик','Юника').replaceAll('Лось','Марс').replaceAll('Мисо','Юника').replaceAll('Сэр Крампет','Антарас'):'';
+ if(activities.raid&&typeof activities.raid==='object'){const g=activities.raid;const round=Number.isInteger(g.round)?Math.max(0,g.round):0;g.round=g.format===2?Math.min(round,2):round>=3?2:round>0?1:0;g.format=2;}
  if(activities.care?.feedback)activities.care.feedback=renameText(activities.care.feedback);
  return {...base,...s,names,choices:s.choices&&typeof s.choices==='object'?s.choices:{},activities,petVisits:migrateIds(s.petVisits),lastResult:renameText(s.lastResult)};
  }catch{return newState();}}
@@ -20,9 +21,8 @@ export function money(amount){return new Intl.NumberFormat('ru-RU',{maximumFract
 export const escapeHTML=(s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function interpolate(text,state){return text.replaceAll('{E}',escapeHTML(state.names[0])).replaceAll('{F}',escapeHTML(state.names[1])).replaceAll('{cash}',money(state.cash));}
 export const RAID=[
- {title:'Босс заметил твоего хрупкого друга.',hint:'Танк отвлечёт босса. Хрупкий друг предпочёл бы остаться не расплющенным.',correct:'tank',success:'Идеально! Танк принимает удар. Марс лает на экран, потому что тоже профессиональный танк.',wrong:'Друг временно стал блинчиком. Гильдия собирается снова. Никого не бросают. Попробуй защиту.'},
- {title:'Здоровье у пати выглядит… декоративно.',hint:'Хилер вернёт полоскам здоровья менее трагический вид.',correct:'heal',success:'Отличный хил! Пати жива. Лапша считает это финансово ответственным расходом маны.',wrong:'Босс провёл несанкционированное групповое объятие. Вдохни. Попробуй действие, возвращающее здоровье.'},
- {title:'Босс ослаб. Пора красиво закончить.',hint:'Баф усиливает всю пати, чтобы всем вместе нанести мощный урон.',correct:'buff',success:'БАФ. БОНК. ПОБЕДА! Две маленькие собаки уверены, что празднуют их заслуги.',wrong:'Босс ещё стоит и выглядит самодовольно. Пати нужно усиление, чтобы добить его вместе.'}
+ {title:'Босс целится в Энжи!',hint:'Одно нажатие на щит спасёт пати.',correct:'guard',action:'Защитить Энжи',icon:'🛡',success:'Щит сработал! Энжи в безопасности. Теперь ударим всей пати.',wrong:'Нажми «Защитить Энжи» — зелёную кнопку со щитом.'},
+ {title:'Щит держится. Добиваем босса!',hint:'Одно нажатие — и общий удар готов.',correct:'strike',action:'Победить босса',icon:'⚔',success:'БОНК! Босс побеждён. Юника требует легендарную вкусняшку.',wrong:'Нажми «Победить босса» — зелёную кнопку с мечами.'}
 ];
 export const ORDERS=[
  {name:'ПовелительЛистьев',plant:'monstera',label:'Пышная монстера',note:'На стол. Моему персонажу нужен эмоциональный кислород.'},

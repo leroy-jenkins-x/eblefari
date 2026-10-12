@@ -25,7 +25,7 @@ test('effects are immutable and energy stays within bounds',()=>{
  const original=newState();const next=applyEffect(original,{energy:900,cash:-100,love:5});assert.equal(original.cash,38);assert.equal(next.cash,0);assert.equal(next.energy,100);assert.equal(next.love,105);
 });
 test('the raid and packing tasks have explicit correct answers',()=>{
- assert.deepEqual(RAID.map(r=>r.correct),['tank','heal','buff']);assert.equal(ORDERS.length,4);for(const o of ORDERS)assert.ok(['monstera','flower','cactus'].includes(o.plant));
+ assert.deepEqual(RAID.map(r=>r.correct),['guard','strike']);assert.equal(ORDERS.length,4);for(const o of ORDERS)assert.ok(['monstera','flower','cactus'].includes(o.plant));
 });
 test('every illustration is inline and has no remote image dependencies',()=>{
  assert.equal(new Set(CHAPTERS.map(c=>c.theme)).size,6);assert.equal(new Set(CHAPTERS.map(c=>sceneSVG(c.theme))).size,6);assert.match(sceneSVG('raid'),/LINEAGE II/);for(const c of CHAPTERS){const art=sceneSVG(c.theme);assert.ok(art.startsWith('<svg'));assert.ok(art.endsWith('</svg>'));assert.ok(art.includes('aria-label'));assert.ok(!art.includes('<image'));}for(const p of PETS)assert.ok(petSVG(p).includes('viewBox'));
@@ -34,4 +34,8 @@ test('every illustration is inline and has no remote image dependencies',()=>{
 test('legacy names and twelve-pet care migrate without losing progress',()=>{
  const old={...newState(),started:true,step:4,names:['Эбле','Фари'],activities:{care:{done:['dumpling','moose','beans','miso','pickle','boba','tofu','noodle','linguine','spaghetti','sir-crumpet','lady-lasagna']}},petVisits:['pickle','sir-crumpet']};
  const next=hydrate(JSON.stringify(old),STORY.length);assert.equal(next.step,4);assert.equal(next.names[1],'Энжи');assert.equal(next.activities.care.done.length,8);assert.ok(CARE_TARGETS.every(p=>next.activities.care.done.includes(p.id)));assert.deepEqual(next.petVisits,['antharas']);
+});
+
+test('an older raid save maps to the two-action battle',()=>{
+ for(const [old,expected] of [[0,0],[1,1],[2,1],[3,2]]){const state={...newState(),activities:{raid:{round:old}}};const migrated=hydrate(JSON.stringify(state),STORY.length);assert.equal(migrated.activities.raid.round,expected);assert.equal(migrated.activities.raid.format,2);}
 });
