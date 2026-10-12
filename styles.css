@@ -108,3 +108,23 @@ button:active:not(:disabled){transform:translateY(2px) scale(.965)}
 @container portrait (max-height:610px){.plant-activity{gap:7px}.task-step{padding:5px 2px;gap:3px}.task-step.current{padding:4px 1px}.task-step small{font-size:8px}.task-step>span{width:17px;height:17px;font-size:9px}.plant-task{min-height:95px;gap:8px;padding:8px}.plant-task-picture{max-width:90px}.plant-task-copy strong{font-size:17px}.plant-task-copy p{font-size:10px;margin-top:5px}.plant-task-copy>span{font-size:8px}.plant-receipt{min-height:49px;padding:6px 8px;gap:7px}.plant-receipt svg{width:33px;height:33px}.plant-receipt strong{font-size:10px}.plant-receipt small{font-size:9px;margin-top:3px}.plant-receipt.empty{font-size:10px}.plant-activity .plant-action{min-height:54px}.plant-action small{font-size:9px}.plant-action strong{font-size:13px}.photo-selection{font-size:10px;padding:5px 7px}.activity:has(.photo-preview) .task-steps{gap:4px}.plant-finished strong{font-size:14px}.finished-plants svg{width:52px;height:52px}}
 
 .raid-victory{top:auto;bottom:12px}
+
+/* Finished actions stay visible and grey; only the next action stays green. */
+.completed-confirmation{flex:none}
+.completed-action:disabled,.action-locked:disabled{opacity:1;background:#e3e5df;color:#777d74;border:1px solid #cdd1c7;box-shadow:none;animation:none;cursor:default}
+.completed-action{width:100%;border-radius:12px;padding:9px 12px;min-height:39px;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
+.completed-action>span{font-size:12px;font-weight:800;line-height:1.3}.completed-action small{font-size:10px;line-height:1.3;color:#83887e}
+.completed-action strong{color:#73796f}.completed-action svg{filter:grayscale(1);opacity:.6}
+.plant-receipt.completed-action{flex-direction:row;gap:9px;padding:8px 10px;align-items:center;animation:receipt-arrive .3s ease-out}
+.plant-receipt.completed-action strong{font-size:12px;color:#73796f}.plant-receipt.completed-action small{margin-top:3px}
+.raid-actions{margin-top:auto;display:grid;gap:7px;flex:none}
+.raid-actions .primary{margin-top:0}.raid-actions .raid-action{flex-direction:row;align-items:center;justify-content:flex-start}
+.raid-actions .action-done,.raid-actions .action-locked{min-height:43px;padding:7px 12px;gap:10px;animation:none}
+.raid-actions .action-done .raid-action-icon,.raid-actions .action-locked .raid-action-icon{font-size:21px}
+.raid-actions .action-done strong,.raid-actions .action-locked strong{font-size:13px;color:#73796f}
+.raid-actions .action-done small,.raid-actions .action-locked small{font-size:9px;color:#83887e;opacity:1}
+.game-option:disabled{opacity:.45}.game-option.selected:disabled{opacity:1;background:#e3e5df;border:2px solid #b4bbad;color:#73796f;box-shadow:none}
+.game-option.selected:disabled::after{background:#888f81;color:white}
+@container portrait (max-height:610px){.raid-arena{height:115px}.raid-actions{gap:5px}.raid-actions .action-done,.raid-actions .action-locked{min-height:35px;padding:5px 8px;gap:7px}.raid-actions .action-done .raid-action-icon,.raid-actions .action-locked .raid-action-icon{font-size:17px}.raid-actions .action-done strong,.raid-actions .action-locked strong{font-size:11px}.raid-actions .action-done small,.raid-actions .action-locked small{font-size:8px}.completed-action{min-height:32px;padding:6px 8px}.completed-action>span{font-size:10px}.completed-action small{font-size:9px}.plant-receipt.completed-action{gap:7px;padding:6px 8px}.plant-receipt.completed-action strong{font-size:10px}}
+
+.activity .completed-action:disabled,.activity .action-locked:disabled{opacity:1}
