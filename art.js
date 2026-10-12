@@ -1,73 +1,43 @@
 export const PETS = [
   {
     "id": "dumpling",
-    "name": "Пельмеш",
+    "name": "Кола",
     "kind": "big",
     "color": "#d3a578",
     "job": "любовь размером с диван",
     "bio": "Сорок пять килограммов карманной собачки. Считает гравитацию личным оскорблением. Умеет перекрыть дверной проём одной попой.",
-    "quote": "Виззи. Уважительно прошу ужин.",
-    "care": "Пельмеш получает завтрак и совершенно непропорциональный чмок в лоб."
+    "quote": "Виззи! Энжики-красотулики, обнимашки сюда!",
+    "care": "Кола получает завтрак и чмок от Энжи. Размер счастья: диван."
   },
   {
     "id": "moose",
-    "name": "Лось",
+    "name": "Марс",
     "kind": "big",
     "color": "#808a7a",
     "job": "начальник дверной охраны",
     "bio": "Охраняет семью от курьеров, листьев и самого понятия вторника. Втайне боится пластиковой лейки.",
-    "quote": "ПИЗЗИ. Нарушитель: лист.",
-    "care": "Лось завтракает. Затем проверяет миску на наличие дополнительного завтрака."
+    "quote": "Пиззи! Энжики, лист подозрительный. Ты — красотулики.",
+    "care": "Марс завтракает. Проверка миски на второй завтрак продолжается."
   },
   {
     "id": "beans",
-    "name": "Фасолька",
+    "name": "Гемира",
     "kind": "small",
     "color": "#b48059",
     "job": "главный по крошкам",
-    "bio": "Ходячая фасолина без образования и с очень высокой должностью. Любую крошку считает собственностью компании.",
-    "quote": "Шмиззи! Пол — это шведский стол!",
-    "care": "Фасолька получает маленький пир. Аудит миски завершён. Ни одна крошка не выжила."
+    "bio": "Ходячая фасолина с очень высокой должностью. Считает каждую крошку собственностью компании.",
+    "quote": "Шмиззи! Красотулики, крошки мои!",
+    "care": "Гемира получает маленький пир. Аудит крошек завершён."
   },
   {
     "id": "miso",
-    "name": "Мисо",
+    "name": "Юника",
     "kind": "small",
     "color": "#e9d4ac",
     "job": "инспектор одеял",
-    "bio": "Профессионально не работает. Бракует пледы, внутри которых ещё нет человека. Общается исключительно театральными вздохами.",
-    "quote": "Виззи-пиззи. Укрой меня.",
-    "care": "Мисо завтракает, затем увольняется с должности бодрствующего."
-  },
-  {
-    "id": "pickle",
-    "name": "Огурчик",
-    "kind": "small",
-    "color": "#747576",
-    "job": "эмоциональная сирена",
-    "bio": "Хочет много сказать, и ничто не срочно. Автобиография «Я видел штуку» состоит из девятисот страниц крика.",
-    "quote": "ПИЗЗИ ПИЗЗИ ПИЗЗИ. Ничего не случилось.",
-    "care": "Огурчик получает завтрак и немедленно сообщает об этом всему району."
-  },
-  {
-    "id": "boba",
-    "name": "Боба",
-    "kind": "small",
-    "color": "#d4a072",
-    "job": "маленький налоговик",
-    "bio": "Берёт одно поглаживание живота с каждой сделки. Её уши — единственная часть семьи со стабильно хорошим приёмом.",
-    "quote": "Шмизнгтон. Налог на пузико пора платить.",
-    "care": "Боба завтракает. В чек включена обязательная надбавка за почёсывание живота."
-  },
-  {
-    "id": "tofu",
-    "name": "Тофу",
-    "kind": "small",
-    "color": "#f0e8d3",
-    "job": "самоназначенный директор",
-    "bio": "Двадцать сантиметров роста. Два метра уверенности. Однажды победил взглядом пылесос, который не был включён.",
-    "quote": "Виззи! Я приобрёл диван.",
-    "care": "Тофу получает завтрак с достоинством, подобающим очень маленькому монарху."
+    "bio": "Инспектор пледов и креативный директор магазина. Плед без Энжи бракуется, фото без Юники считается недействительным.",
+    "quote": "Энжики-красотулики! Укрой-поцелуй-покорми!",
+    "care": "Юника завтракает и официально увольняется с должности бодрствующей."
   },
   {
     "id": "noodle",
@@ -100,26 +70,17 @@ export const PETS = [
     "care": "Проверка жилья Спагетти завершена. Выражение лица великолепно бесполезное."
   },
   {
-    "id": "sir-crumpet",
-    "name": "Сэр Крампет",
+    "id": "antharas",
+    "name": "Антарас",
     "kind": "lizard",
     "color": "#a4b889",
-    "job": "рептилия в резиденции",
-    "bio": "Бородатый аристократ. Смотрит на людей как отставной герцог, увидевший неправильное использование салатницы.",
-    "quote": "Шмиззи, крестьяне. Великолепно.",
-    "care": "Заботы Сэра Крампета выполнены по его плану. Награда: медленный королевский морг."
-  },
-  {
-    "id": "lady-lasagna",
-    "name": "Леди Лазанья",
-    "kind": "lizard",
-    "color": "#e4b978",
-    "job": "аристократка солнечного луча",
-    "bio": "Геккон со строгой политикой: выглядеть мило и не участвовать в оплате электричества.",
-    "quote": "Пиззи-виззи. Требую солнечный луч.",
-    "care": "Уход Леди Лазаньи завершён. В благодарность она продолжает выглядеть дорого."
+    "job": "домашний рейд-босс",
+    "bio": "Великий дракон террариума. Его грозный рейд занимает три шага до салата. Лут: королевский морг.",
+    "quote": "Энжики! Красотулики! Салатулики — дракону!",
+    "care": "Антарас и три змеи: террариумы и расписания ухода проверены. Дракон одобряет королевским моргом."
   }
 ];
+export const CARE_TARGETS=PETS.filter(p=>p.kind!=='snake');
 
 const eyes = '<g class="blink"><circle cx="37" cy="39" r="3" fill="#3f4540"/><circle cx="63" cy="39" r="3" fill="#3f4540"/></g>';
 export function petDrawing(pet){
@@ -142,7 +103,7 @@ function person(x,y,which){
  const beard=!fari?`<path d="M11 38Q14 53 24 48Q35 43 47 49Q56 45 61 36L60 52Q55 77 35 80Q15 73 11 53Z" fill="#514b40" stroke="#403f38" stroke-width="1.1"/><path d="M24 48q11-7 22 0" fill="none" stroke="#373b34" stroke-width="5" stroke-linecap="round"/><path d="M29 53q7 4 13-1" stroke="#d7aa89" stroke-width="1.7" fill="none"/><path d="M20 58l4 11m5-9 2 13m13-13-2 13m10-16-4 12" stroke="#78715f" stroke-width="1" opacity=".6"/>`:'';
  return `<g transform="translate(${x} ${y})" data-character="${fari?'fari-dreadlocks':'eble-bald-beard'}"><g class="bob ${fari?'slow':''}"><path d="M22 99 18 125m35-26 5 26" stroke="#51594d" stroke-width="13" stroke-linecap="round"/><path d="M11 58q25-18 49 0l8 48H7z" fill="${shirt}" stroke="#61705b" stroke-width="1.3"/><path d="m14 63-17 30m61-30 16 26" stroke="${skin}" stroke-width="12" stroke-linecap="round"/>${dreads}<ellipse cx="35" cy="33" rx="${fari?22:26}" ry="${fari?25:30}" fill="${skin}" stroke="#a17c61" stroke-width="1"/>${!fari?'<path d="M14 27q8-6 15-2m12 0q8-5 15 1" stroke="#544c3f" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M28 9q8-3 15 0" stroke="#f0d2ad" stroke-width="2" fill="none"/>':'<path d="m22 29 9 1m9 0 9-3" stroke="#735347" stroke-width="2" stroke-linecap="round"/><path d="M11 17q6-10 19-13" fill="none" stroke="#b67c72" stroke-width="5" stroke-linecap="round"/>'}<g class="blink"><circle cx="27" cy="36" r="2" fill="#454b3f"/><circle cx="44" cy="36" r="2" fill="#454b3f"/></g><path d="M34 39q-3 5 2 5" fill="none" stroke="#b4886d" stroke-width="1.3"/><ellipse cx="20" cy="44" rx="4" ry="2.5" fill="#e5a190"/><ellipse cx="51" cy="44" rx="4" ry="2.5" fill="#e5a190"/>${beard}${fari?'<path d="M28 47q7 6 15-1" fill="none" stroke="#ae736c" stroke-width="2" stroke-linecap="round"/><path d="M25 5Q9 22 15 64" stroke="#e5d2b0" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M54 17Q63 35 59 63" stroke="#c9baa2" stroke-width="6" stroke-linecap="round" fill="none"/>':'<path d="M49 88q-7-10-15 0l7 8z" fill="none" stroke="#827443" stroke-width="1.5"/>'}</g></g>`;
 }
-const sceneTitles={home:'Утренний бунт: семь собак требуют завтрак',plants:'Горшечная мастерская: пара выращивает растения',raid:'Lineage II: пара, замок и дракон в собачьей короне',orders:'Упаковочный штаб: коробки, посылки и пушистый директор',greenhouse:'Зелёная империя: большая теплица и море растений',rich:'Счастливый финал: сад, новый дом и вся любимая семья'};
+const sceneTitles={home:'Утренний бунт: четыре собаки требуют завтрак',plants:'Горшечная мастерская: пара выращивает растения',raid:'Lineage II: пара, замок и дракон в собачьей короне',orders:'Упаковочный штаб: коробки, посылки и пушистый директор',greenhouse:'Зелёная империя: большая теплица и море растений',rich:'Счастливый финал: сад, новый дом и вся любимая семья'};
 const scenePet=(i,x,y,scale=.6,knight=false)=>`<g transform="translate(${x} ${y}) scale(${scale})"><g class="bob ${i%2?'slow':''}">${petDrawing(PETS[i])}${knight?'<path d="M22 24 50 5 78 24v8H22z" fill="#a6bbc9" stroke="#596b86" stroke-width="2"/><path d="M50 5v24" stroke="#e2eef0" stroke-width="3"/>':''}</g></g>`;
 const scenePlant=(type,x,y,scale=.6)=>`<g transform="translate(${x} ${y}) scale(${scale})">${plantDrawing(type)}</g>`;
 const scenePerson=(x,y,which,scale=1)=>`<g transform="translate(${x} ${y}) scale(${scale})">${person(0,0,which)}</g>`;
@@ -153,24 +114,24 @@ export function sceneSVG(theme='home',options={}){
  const dark=theme==='raid',bg=dark?'#29354e':theme==='rich'?'#eaf0db':'#e9ecd9';
  let art=`<rect width="440" height="300" fill="${bg}"/><path d="M0 226h440v74H0z" fill="${dark?'#56627b':'#d8d2b2'}"/><ellipse cx="220" cy="274" rx="194" ry="20" fill="${dark?'#788097':'#f6e9c7'}"/>`;
  if(theme==='home'){
-  art+=`<rect x="146" y="16" width="146" height="112" rx="53" fill="#fff7df" stroke="#a8b596" stroke-width="3"/><path d="M218 19v105m-67-55h137" stroke="#a8b596" stroke-width="3"/><circle cx="256" cy="45" r="14" fill="#f3d183"/><rect x="114" y="167" width="210" height="69" rx="23" fill="#deb2a2" stroke="#b68f83" stroke-width="2"/><path d="M10 55h105m224 24h91" stroke="#ad9878" stroke-width="7"/>${scenePlant('flower',37,6,.55)}${scenePlant('monstera',354,14,.65)}<rect x="332" y="111" width="99" height="89" rx="12" fill="#b9c9af" stroke="#8f9f83" stroke-width="3"/>${scenePet(7,337,138,.46)}${scenePet(10,379,141,.43)}${scenePerson(150,90,1)}${scenePerson(225,88,0)}`;
-  [[47,169,.99],[318,171,.97],[94,227,.57],[142,235,.51],[185,230,.55],[232,235,.51],[274,229,.56]].forEach((p,i)=>art+=scenePet(i,...p));
+  art+=`<rect x="146" y="16" width="146" height="112" rx="53" fill="#fff7df" stroke="#a8b596" stroke-width="3"/><path d="M218 19v105m-67-55h137" stroke="#a8b596" stroke-width="3"/><circle cx="256" cy="45" r="14" fill="#f3d183"/><rect x="114" y="167" width="210" height="69" rx="23" fill="#deb2a2" stroke="#b68f83" stroke-width="2"/><path d="M10 55h105m224 24h91" stroke="#ad9878" stroke-width="7"/>${scenePlant('flower',37,6,.55)}${scenePlant('monstera',354,14,.65)}<rect x="332" y="111" width="99" height="89" rx="12" fill="#b9c9af" stroke="#8f9f83" stroke-width="3"/>${scenePet(4,337,138,.46)}${scenePet(7,379,141,.43)}${scenePerson(150,90,1)}${scenePerson(225,88,0)}`;
+  [[47,169,.99],[318,171,.97],[145,228,.66],[237,228,.66]].forEach((p,i)=>art+=scenePet(i,...p));
   art+=`<g fill="#f4d8b5" stroke="#b59468" stroke-width="1.5"><path d="M37 272h48l-6 15H43z"/><path d="M354 272h48l-6 15h-36z"/></g>${sceneText('ЗАВТРАК — СВЯЩЕНЕН',220,32,'#9b7460',10)}`;
  }else if(theme==='plants'){
-  art+=`<path d="M16 95h113m179-24h116m-116 64h116" stroke="#a48f6f" stroke-width="7"/>${scenePlant('monstera',15,7,.9)}${scenePlant('cactus',79,45,.57)}${scenePlant('flower',309,15,.59)}${scenePlant('monstera',362,2,.77)}${scenePlant('flower',358,86,.68)}<rect x="132" y="19" width="166" height="40" rx="11" fill="#faf4df" stroke="#b4c09f"/>${sceneText('ЛИСТИКИ & ЛЮБОВЬ',215,45)}${scenePerson(139,84,1,.98)}${scenePerson(229,80,0,.98)}<rect x="100" y="196" width="230" height="18" rx="5" fill="#aa8062"/><path d="M119 214v75m196-75v75" stroke="#977258" stroke-width="10"/>${scenePlant('monstera',129,128,.82)}${scenePlant('flower',222,144,.64)}<ellipse cx="282" cy="189" rx="17" ry="7" fill="#78604f"/><path d="m283 190 8-29" stroke="#8b795f" stroke-width="4"/>${scenePet(2,38,214,.75)}${scenePet(4,331,204,.85)}${scenePet(8,183,225,.57)}<path d="M62 210q5-22 24-22" stroke="#8cadbc" stroke-width="7" fill="none"/><rect x="61" y="204" width="26" height="24" rx="5" fill="#9ebcc8"/>`;
+  art+=`<path d="M16 95h113m179-24h116m-116 64h116" stroke="#a48f6f" stroke-width="7"/>${scenePlant('monstera',15,7,.9)}${scenePlant('cactus',79,45,.57)}${scenePlant('flower',309,15,.59)}${scenePlant('monstera',362,2,.77)}${scenePlant('flower',358,86,.68)}<rect x="132" y="19" width="166" height="40" rx="11" fill="#faf4df" stroke="#b4c09f"/>${sceneText('ЛИСТИКИ & ЛЮБОВЬ',215,45)}${scenePerson(139,84,1,.98)}${scenePerson(229,80,0,.98)}<rect x="100" y="196" width="230" height="18" rx="5" fill="#aa8062"/><path d="M119 214v75m196-75v75" stroke="#977258" stroke-width="10"/>${scenePlant('monstera',129,128,.82)}${scenePlant('flower',222,144,.64)}<ellipse cx="282" cy="189" rx="17" ry="7" fill="#78604f"/><path d="m283 190 8-29" stroke="#8b795f" stroke-width="4"/>${scenePet(2,38,214,.75)}${scenePet(3,331,204,.85)}${scenePet(5,183,225,.57)}<path d="M62 210q5-22 24-22" stroke="#8cadbc" stroke-width="7" fill="none"/><rect x="61" y="204" width="26" height="24" rx="5" fill="#9ebcc8"/>`;
  }else if(theme==='raid'){
-  art+=`<g fill="#dbe4cf"><circle cx="29" cy="35" r="2"/><circle cx="313" cy="22" r="2"/><circle cx="408" cy="57" r="2"/><path class="sparkle" d="m336 74 3-7 3 7 7 3-7 3-3 7-3-7-7-3"/></g><circle cx="55" cy="65" r="21" fill="#f0e2b8"/><path d="M58 29h58v27H58zm-8 27h75v148H50zm275 11h59v139h-59zm-12-18h16v23h-16zm29 0h16v23h-16zm29 0h16v23h-16z" fill="#768298"/><path d="M115 143h214v65H115" fill="#64718b"/><path d="M53 80h65m210 27h54" stroke="#8f9caf" stroke-width="3"/>${sceneText('LINEAGE II',221,36,'#f4dda2',24)}${sceneText('КЛАН «ВИЗЗИ» · РЕЙД НА УЖИН',222,56,'#c6dcd3',9)}<g class="dragon-float"><path d="M301 181q-16-35 15-58l-3-37 23 20 24-11-2 34q22 18 6 49l35 13-21 11-10-17-9 21-50-4-9-23-17 12-15-13z" fill="#96aa87" stroke="#576d62" stroke-width="2"/><path d="m311 133-32-31-3 50 29 12m58-32 37-27-2 45-29 15" fill="#c1bc99" stroke="#738573" stroke-width="2"/><circle cx="327" cy="137" r="3" fill="#364c44"/><circle cx="349" cy="137" r="3" fill="#364c44"/><path d="M329 151q10 10 19 0" fill="none" stroke="#56685a" stroke-width="2"/><path d="m316 107-3-16 12 7 13-16 10 16 12-5-4 17z" fill="#f1d58c"/>${sceneText('Босс: ГОЛОД',338,216,'#dce5ce',10)}</g><path d="M130 139q-28 23-21 79l60-9z" fill="#b994b1"/><path d="M209 134q-10 22-8 80l59-9z" fill="#8baac1"/>${scenePerson(124,89,1,.83)}${scenePerson(204,86,0,.87)}<path d="M112 142v74" stroke="#c6ad7f" stroke-width="5"/><path class="sparkle" d="m112 133-9 8 9 8 9-8z" fill="#e9f2c0" stroke="#b3d2b1" stroke-width="2"/><path d="m266 171 25-36 7 5-23 36z" fill="#dce7ed" stroke="#879cae"/><path d="m265 172 14 10" stroke="#e3cf8e" stroke-width="5"/>${scenePet(0,27,205,.83,true)}${scenePet(4,251,222,.61,true)}<rect x="116" y="241" width="132" height="40" rx="5" fill="#303f57" stroke="#899aaf" stroke-width="2"/><rect x="123" y="247" width="118" height="25" rx="2" fill="#789a88"/>${sceneText('HP ♥♥♥   МАНА ✦✦✦',182,264,'#ecf1d9',9)}<path d="M104 284h159l-12 8H117z" fill="#a1afbb"/>`;
+  art+=`<g fill="#dbe4cf"><circle cx="29" cy="35" r="2"/><circle cx="313" cy="22" r="2"/><circle cx="408" cy="57" r="2"/><path class="sparkle" d="m336 74 3-7 3 7 7 3-7 3-3 7-3-7-7-3"/></g><circle cx="55" cy="65" r="21" fill="#f0e2b8"/><path d="M58 29h58v27H58zm-8 27h75v148H50zm275 11h59v139h-59zm-12-18h16v23h-16zm29 0h16v23h-16zm29 0h16v23h-16z" fill="#768298"/><path d="M115 143h214v65H115" fill="#64718b"/><path d="M53 80h65m210 27h54" stroke="#8f9caf" stroke-width="3"/>${sceneText('LINEAGE II',221,36,'#f4dda2',24)}${sceneText('КЛАН «ВИЗЗИ» · РЕЙД НА УЖИН',222,56,'#c6dcd3',9)}<g class="dragon-float"><path d="M301 181q-16-35 15-58l-3-37 23 20 24-11-2 34q22 18 6 49l35 13-21 11-10-17-9 21-50-4-9-23-17 12-15-13z" fill="#96aa87" stroke="#576d62" stroke-width="2"/><path d="m311 133-32-31-3 50 29 12m58-32 37-27-2 45-29 15" fill="#c1bc99" stroke="#738573" stroke-width="2"/><circle cx="327" cy="137" r="3" fill="#364c44"/><circle cx="349" cy="137" r="3" fill="#364c44"/><path d="M329 151q10 10 19 0" fill="none" stroke="#56685a" stroke-width="2"/><path d="m316 107-3-16 12 7 13-16 10 16 12-5-4 17z" fill="#f1d58c"/>${sceneText('Босс: ГОЛОД',338,216,'#dce5ce',10)}</g><path d="M130 139q-28 23-21 79l60-9z" fill="#b994b1"/><path d="M209 134q-10 22-8 80l59-9z" fill="#8baac1"/>${scenePerson(124,89,1,.83)}${scenePerson(204,86,0,.87)}<path d="M112 142v74" stroke="#c6ad7f" stroke-width="5"/><path class="sparkle" d="m112 133-9 8 9 8 9-8z" fill="#e9f2c0" stroke="#b3d2b1" stroke-width="2"/><path d="m266 171 25-36 7 5-23 36z" fill="#dce7ed" stroke="#879cae"/><path d="m265 172 14 10" stroke="#e3cf8e" stroke-width="5"/>${scenePet(0,27,205,.83,true)}${scenePet(3,251,222,.61,true)}<rect x="116" y="241" width="132" height="40" rx="5" fill="#303f57" stroke="#899aaf" stroke-width="2"/><rect x="123" y="247" width="118" height="25" rx="2" fill="#789a88"/>${sceneText('HP ♥♥♥   МАНА ✦✦✦',182,264,'#ecf1d9',9)}<path d="M104 284h159l-12 8H117z" fill="#a1afbb"/>`;
  }else if(theme==='orders'){
   art+=`<rect x="109" y="14" width="228" height="42" rx="12" fill="#fbf3dc" stroke="#c5b590"/>${sceneText('ШМИЗЗИ · ДОСТАВКА С ЛЮБОВЬЮ',223,41,'#856f56',11)}${sceneBox(17,100,72,65)}${sceneBox(30,56,56,43)}${sceneBox(349,97,77,65)}${sceneBox(363,53,56,43)}${scenePerson(138,85,1,.92)}${scenePerson(230,85,0,.92)}<rect x="97" y="200" width="244" height="16" rx="4" fill="#b08c70"/><path d="M112 216v70m213-70v70" stroke="#94775e" stroke-width="9"/>${sceneBox(147,160,59,40)}${scenePlant('flower',221,125,.79)}${sceneBox(31,234,65,53)}${sceneBox(342,239,69,44)}${scenePet(2,170,216,.78)}${scenePet(1,333,163,.81)}<path d="m209 232 20 4-9 11-20-5z" fill="#fff9e6"/>${sceneText('ДИРЕКТОР',210,279,'#987e60',8)}<rect x="15" y="175" width="63" height="48" rx="6" fill="#b1c6b4"/><rect x="22" y="180" width="49" height="31" fill="#eff3df"/>${sceneText('99+ ♡',46,200,'#d38274',12)}`;
  }else if(theme==='greenhouse'){
   art+=`<path d="M22 229V73Q220-37 418 73v156z" fill="#d1e3cf" stroke="#97b49a" stroke-width="5"/><path d="M111 42v190M220 17v217M330 42v190M25 104h390M23 176h394" fill="none" stroke="#a0bea4" stroke-width="3"/><path d="M180 233V101q40-33 80 0v132" fill="#f0f2dc" stroke="#a1b99a" stroke-width="3"/><circle cx="370" cy="50" r="18" fill="#f1d68e"/><path d="M220 232 136 300h164l-70-68" fill="#ece4c7"/>`;
   for(const [x,y,k] of [[22,105,1],[78,114,0],[297,98,0],[347,108,1],[18,193,0],[78,207,1],[307,194,1],[365,209,0]])art+=scenePlant(k?'flower':'monstera',x,y,.75);
-  art+=`${scenePerson(144,109,1,.88)}${scenePerson(221,105,0,.9)}${scenePet(3,127,239,.6)}${scenePet(5,235,241,.61)}<rect x="137" y="30" width="166" height="26" rx="9" fill="#faf5dc"/>${sceneText('ТЕПЛИЦА МЕЧТЫ',220,48,'#628969',11)}<g class="bee-flight"><ellipse cx="337" cy="168" rx="10" ry="6" fill="#e8c673"/><path d="M334 163v10m6-10v10" stroke="#7d7351" stroke-width="2"/><ellipse cx="332" cy="160" rx="6" ry="4" fill="#faf5de"/><ellipse cx="343" cy="160" rx="6" ry="4" fill="#faf5de"/></g>`;
+  art+=`${scenePerson(144,109,1,.88)}${scenePerson(221,105,0,.9)}${scenePet(3,127,239,.6)}${scenePet(2,235,241,.61)}<rect x="137" y="30" width="166" height="26" rx="9" fill="#faf5dc"/>${sceneText('ТЕПЛИЦА МЕЧТЫ',220,48,'#628969',11)}<g class="bee-flight"><ellipse cx="337" cy="168" rx="10" ry="6" fill="#e8c673"/><path d="M334 163v10m6-10v10" stroke="#7d7351" stroke-width="2"/><ellipse cx="332" cy="160" rx="6" ry="4" fill="#faf5de"/><ellipse cx="343" cy="160" rx="6" ry="4" fill="#faf5de"/></g>`;
  }else{
   art+=`<path d="M83 116V69l58-31 60 31v47" fill="#faf2da" stroke="#c1bb98" stroke-width="3"/><path d="m73 69 68-43 71 43" fill="#b6c7a1" stroke="#8ea883" stroke-width="3"/><rect x="119" y="73" width="41" height="45" rx="18" fill="#a6c4b4"/><path d="M262 198V74q61-69 120 0v125" stroke="#98af84" stroke-width="8" fill="none"/><g fill="#e6b5a3"><circle cx="268" cy="79" r="7"/><circle cx="287" cy="49" r="7"/><circle cx="316" cy="40" r="7"/><circle cx="349" cy="48" r="7"/><circle cx="377" cy="79" r="7"/></g><path d="M15 200q21-27 55 0t67 0t68 0t66 0t71 0t68 0v31H15" fill="#b7c8a0"/>${scenePerson(151,102,1)}${scenePerson(226,101,0)}<path d="M31 172h75m-62 0 9 33h31l10-33" fill="#abc9c1" stroke="#82a59d" stroke-width="3"/><path class="fountain-water" d="M53 171q-4-32 16-33t17 33m-17-33v36" stroke="#c9e4db" stroke-width="3" fill="none"/>${sceneText('ВСЕ ДОМА. ВСЕ ЛЮБИМЫ.',226,25,'#718b65',12)}`;
-  [[30,208,.92],[318,207,.92],[118,250,.5],[161,253,.47],[203,250,.51],[246,253,.47],[287,250,.5]].forEach((p,i)=>art+=scenePet(i,...p));
-  art+=`${scenePet(9,346,121,.43)}${scenePet(11,311,128,.45)}${scenePlant('flower',15,93,.69)}<path class="sparkle" d="M224 64c-12-17-31 4 0 22 31-18 12-39 0-22" fill="#d98b80"/>`;
+  [[30,208,.92],[318,207,.92],[145,242,.61],[241,242,.61]].forEach((p,i)=>art+=scenePet(i,...p));
+  art+=`${scenePet(6,346,121,.43)}${scenePet(7,311,128,.45)}${scenePlant('flower',15,93,.69)}<path class="sparkle" d="M224 64c-12-17-31 4 0 22 31-18 12-39 0-22" fill="#d98b80"/>`;
  }
- if(options.bomb)art+=scenePet(4,280,177,1.22);
- return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${options.compact?12:0} 440 ${options.compact?288:300}" data-theme="${theme}" role="img" aria-label="${sceneTitles[theme]}. Героиня со светлыми цветными дредами, герой лысый и бородатый в жёлтой футболке.">${art}</svg>`;
+ if(options.bomb)art+=scenePet(3,280,177,1.22);
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${options.compact?12:0} 440 ${options.compact?288:300}" data-theme="${theme}" role="img" aria-label="${sceneTitles[theme]}. Энжи со светлыми цветными дредами, герой лысый и бородатый в жёлтой футболке.">${art}</svg>`;
 }

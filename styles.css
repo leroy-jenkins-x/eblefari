@@ -47,3 +47,18 @@
 .restart-link{background:transparent;color:var(--muted);font-size:10px;line-height:1.3;padding:6px 4px;min-height:30px;white-space:nowrap}
 .restart-link:hover{color:var(--green)}.home-tools{display:flex;justify-content:center;align-items:center;gap:10px;flex:none}
 @container portrait (max-height:610px){.restart-link{font-size:9px;min-height:28px}.page-tools{font-size:9px}}
+
+/* Tactile buttons and a quick sparkle survive scene changes. */
+button{transition:transform .12s ease,background-color .16s ease,box-shadow .12s ease}
+button:active:not(:disabled){transform:translateY(2px) scale(.965)}
+#tap-effects{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
+.tap-spark{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;text-align:center;line-height:28px;font-size:27px;color:var(--coral);animation:tap-spark .48s ease-out forwards}
+.tap-spark::after{content:'';position:absolute;inset:0;border:2px solid var(--coral);border-radius:50%;animation:tap-ring .48s ease-out forwards}
+#pet-bubble.show{animation:bubble-arrive .4s cubic-bezier(.2,.8,.3,1.15)}
+#pet-bubble.show .bubble-pet{animation:pet-peek .45s ease-out}
+#pet-bubble.show .bubble-copy{animation:bubble-words .3s ease-out}
+@keyframes bubble-arrive{0%{opacity:0;transform:translate(7px,-8px) scale(.88)}65%{opacity:1;transform:translate(0,0) scale(1.025)}100%{transform:translate(0,0) scale(1)}}
+@keyframes pet-peek{0%{transform:rotate(-14deg) scale(.7)}55%{transform:rotate(7deg) scale(1.08)}100%{transform:rotate(0) scale(1)}}
+@keyframes bubble-words{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tap-spark{0%{opacity:0;transform:scale(.45) rotate(-20deg)}30%{opacity:1;transform:scale(1) rotate(8deg)}100%{opacity:0;transform:translateY(-16px) scale(.7) rotate(35deg)}}
+@keyframes tap-ring{from{opacity:.65;transform:scale(.3)}to{opacity:0;transform:scale(1.8)}}

@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STORY,CHAPTERS} from '../story.js';
-import {PETS,sceneSVG,petSVG} from '../art.js';
+import {PETS,CARE_TARGETS,sceneSVG,petSVG} from '../art.js';
 import {newState,advanceState,hydrate,applyEffect,escapeHTML,interpolate,RAID,ORDERS} from '../engine.js';
 
-test('the household has exactly two big dogs, five small dogs, multiple snakes and reptiles',()=>{
- assert.equal(PETS.filter(p=>p.kind==='big').length,2);assert.equal(PETS.filter(p=>p.kind==='small').length,5);assert.equal(PETS.filter(p=>p.kind==='snake').length,3);assert.equal(PETS.filter(p=>p.kind==='lizard').length,2);assert.equal(new Set(PETS.map(p=>p.id)).size,PETS.length);
+test('the household has four named dogs, three snakes and Antharas',()=>{
+ assert.equal(PETS.filter(p=>p.kind==='big').length,2);assert.equal(PETS.filter(p=>p.kind==='small').length,2);assert.equal(PETS.filter(p=>p.kind==='snake').length,3);assert.equal(PETS.filter(p=>p.kind==='lizard').length,1);assert.equal(new Set(PETS.map(p=>p.id)).size,PETS.length);assert.deepEqual(CARE_TARGETS.map(p=>p.name),['Кола','Марс','Гемира','Юника','Антарас']);
 });
 test('all six chapters are complete and ordered, with unique story beats',()=>{
  assert.equal(CHAPTERS.length,6);assert.equal(new Set(STORY.map(s=>s.id)).size,STORY.length);let prev=0;for(const s of STORY){assert.ok(s.chapter>=prev&&s.chapter<6);assert.ok(s.title&&s.text.length>=1);prev=s.chapter;}for(let i=0;i<6;i++)assert.ok(STORY.filter(s=>s.chapter===i).length>=6);assert.equal(STORY.at(-1).finish,true);
@@ -29,4 +29,9 @@ test('the raid and packing tasks have explicit correct answers',()=>{
 });
 test('every illustration is inline and has no remote image dependencies',()=>{
  assert.equal(new Set(CHAPTERS.map(c=>c.theme)).size,6);assert.equal(new Set(CHAPTERS.map(c=>sceneSVG(c.theme))).size,6);assert.match(sceneSVG('raid'),/LINEAGE II/);for(const c of CHAPTERS){const art=sceneSVG(c.theme);assert.ok(art.startsWith('<svg'));assert.ok(art.endsWith('</svg>'));assert.ok(art.includes('aria-label'));assert.ok(!art.includes('<image'));}for(const p of PETS)assert.ok(petSVG(p).includes('viewBox'));
+});
+
+test('legacy names and twelve-pet care migrate without losing progress',()=>{
+ const old={...newState(),started:true,step:4,names:['Эбле','Фари'],activities:{care:{done:['dumpling','moose','beans','miso','pickle','boba','tofu','noodle','linguine','spaghetti','sir-crumpet','lady-lasagna']}},petVisits:['pickle','sir-crumpet']};
+ const next=hydrate(JSON.stringify(old),STORY.length);assert.equal(next.step,4);assert.equal(next.names[1],'Энжи');assert.equal(next.activities.care.done.length,8);assert.ok(CARE_TARGETS.every(p=>next.activities.care.done.includes(p.id)));assert.deepEqual(next.petVisits,['antharas']);
 });

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STORY} from '../story.js';
 import {storyFrames} from '../layout.js';
-import {PETS} from '../art.js';
+import {PETS,CARE_TARGETS} from '../art.js';
 import {SAVE_KEY,RAID,ORDERS} from '../engine.js';
 
 // A small DOM port exercises the actual app event handlers and rendered output.
@@ -35,7 +35,7 @@ test('a complete playthrough handles all activities, errors, saves, names and re
     click('next');
     assert.equal(state().page,frames.length);
     click('next');assert.equal(state().step,STORY.indexOf(step),'incomplete games cannot be skipped');
-    if(step.game==='care'){for(const p of PETS)click('care',{id:p.id});click('care',{id:PETS[0].id});assert.equal(state().activities.care.done.length,12);}
+    if(step.game==='care'){for(const p of CARE_TARGETS)click('care',{id:p.id});click('care',{id:PETS[0].id});assert.equal(CARE_TARGETS.length,5);assert.equal(state().activities.care.done.length,PETS.length);}
     if(step.game==='potting'){click('pot',{id:'cactus'});assert.equal(state().activities.potting.count,0);for(const id of ['monstera','flower','cactus'])click('pot',{id});}
     if(step.game==='photo'){click('photo-style',{id:'chaos'});click('photobomb');assert.match(html(),/Пригласить креативного директора|Опубликовать эту красоту/);click('photo-post');}
     if(step.game==='raid'){click('raid',{id:'heal'});assert.equal(state().activities.raid.round,0);for(const r of RAID)click('raid',{id:r.correct});}
@@ -44,7 +44,7 @@ test('a complete playthrough handles all activities, errors, saves, names and re
     click('next');
    }else if(step.choices)click('choose',{index:'0'});else click('next');
   }
-  assert.equal(state().finished,true);assert.ok(state().cash>2000000);assert.match(html(),/и жили они долго и шмиззи/);click('ending-report');assert.match(html(),/Крошечные троны рептилиям/);
+  assert.equal(state().finished,true);assert.ok(state().cash>2000000);assert.match(html(),/и жили они долго и шмиззи/);click('ending-report');assert.match(html(),/Трон Антарасу/);
   click('home');assert.match(html(),/Продолжить приключение/);click('resume');assert.match(html(),/Семейный отчёт/);
   click('restart-confirm');assert.equal(elements.get('#modal').open,true);click('restart');assert.equal(state().step,0);assert.equal(state().finished,false);assert.deepEqual(state().names,['Ada <3','Finn & Fern']);assert.match(html(),/Да начнётся беспредел/);
  }finally{globalThis.setTimeout=originalTimeout;}
